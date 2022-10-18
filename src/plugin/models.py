@@ -1,5 +1,5 @@
 '''
- *DTO Models for the api calls
+ * DTO Models for the api calls
 '''
 
 
