@@ -1,0 +1,17 @@
+{
+    "checkout_url": "https://sandbox.securepay.shurjopayment.com/spaycheckout/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3NhbmRib3guc2h1cmpvcGF5bWVudC5jb20vYXBpL2xvZ2luIiwiaWF0IjoxNjY1NjQ3NzUzLCJleHAiOjE2NjU2NTEzNTMsIm5iZiI6MTY2NTY0Nzc1MywianRpIjoiNFhXVzlZMGRpWm1lUUNZRiIsInN1YiI6IjEiLCJwcnYiOiI4MDVmMzllZWZjYzY4YWZkOTgyNWI0MTIyN2RhZDBhMDc2YzQ5NzkzIn0.g5yBG3n9wssIzyOhJhce6vQyNd51w70dRssjXKoxeE0&order_id=sp6347c48a2f05d",
+    "amount": 105,
+    "currency": "BDT",
+    "sp_order_id": "sp6347c48a2f05d",
+    "customer_order_id": "sp315689",
+    "customer_name": "Mahabubul",
+    "customer_address": [
+        "Mohakhali"
+    ],
+    "customer_city": "Dhaka",
+    "customer_phone": "01311310975",
+    "customer_email": null,
+    "client_ip": "192.168.100.164",
+    "intent": "sale",
+    "transactionStatus": "Initiated"
+}

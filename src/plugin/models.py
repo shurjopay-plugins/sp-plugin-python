@@ -3,7 +3,7 @@
 '''
 
 
-class ShurjoPayToken(object):
+class ShurjoPayTokenModel(object):
     def __init__(self, token, store_id, execute_url, token_type, sp_code, message, token_create_time, expires_in) -> None:
         self.token = token
         self.store_id = store_id
@@ -15,7 +15,7 @@ class ShurjoPayToken(object):
         self.expires_in = expires_in
 
 
-class PaymentRequest(object):
+class PaymentRequestModel(object):
     def __init__(self, prefix, amount, order_id,  currency, customer_name, customer_address, customer_phone, customer_city, customer_post_code, client_ip) -> None:
         self.prefix = prefix
         self.amount = amount
@@ -29,8 +29,7 @@ class PaymentRequest(object):
         self.client_ip = client_ip
 
 
-class PaymentDetails(object):
-
+class PaymentDetailsModel(object):
     def __init__(self, checkout_url, amount, currency, sp_order_id, customer_order_id, customer_name, customer_address, customer_city, customer_phone, customer_email, client_ip, intent, transactionStatus) -> None:
         self.checkout_url = checkout_url
         self.amount = amount
@@ -47,8 +46,8 @@ class PaymentDetails(object):
         self.transactionStatus = transactionStatus
 
 
-class VerifiedPaymentDetails(object):
-    def __init__(self, id, order_id, currency, amount, payable_amount, discsount_amount, disc_percent, usd_amt, usd_rate, card_holder_name, card_number, phone_no, bank_trx_id, invoice_no, bank_status, customer_order_id, sp_massage, sp_code, name, email, address, city, value1, value2, value3, value4, transaction_status, method, date_time):
+class VerifiedPaymentDetailsModel(object):
+    def __init__(self, id, order_id, currency, amount, payable_amount, discsount_amount, disc_percent, usd_amt, usd_rate, card_holder_name, card_number, phone_no, bank_trx_id, invoice_no, bank_status, customer_order_id, sp_message, sp_code, name, email, address, city, value1, value2, value3, value4, transaction_status, method, date_time):
         self.id = id
         self.order_id = order_id
         self.currency = currency
@@ -65,7 +64,7 @@ class VerifiedPaymentDetails(object):
         self.invoice_no = invoice_no
         self.bank_status = bank_status
         self.customer_order_id = customer_order_id
-        self.sp_massage = sp_massage
+        self.sp_message = sp_message
         self.sp_code = sp_code
         self.name = name
         self.email = email
