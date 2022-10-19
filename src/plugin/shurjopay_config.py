@@ -6,10 +6,9 @@ import datetime
 
 class ShurjopayConfig(object):
     '''
-        Creates a logger instance.
-        Set Log level to DEBUG, INFO, WARNING, ERROR, CRITICAL
-        Define file handeler and set formatter
-        Add file handler to logger
+    Configurations class for Shurjopay
+    Creates environment variable to retrive data from .env file
+    Creates a logger instance to log the actions ,Defines file handeler and set formatter,Adds file handler to logger
     '''
     __basedir = os.path.dirname(os.path.dirname(
         os.path.dirname(os.path.abspath(__file__))))
@@ -31,6 +30,3 @@ class ShurjopayConfig(object):
                 logging.StreamHandler()
             ]
         )
-
-
-sp = ShurjopayConfig()
