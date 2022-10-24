@@ -1,6 +1,10 @@
-'''
- * DTO Models for the api calls
-'''
+
+class ShurjoPayConfigModel(object):
+    def __init__(self, SP_USERNAME, SP_PASSWORD, SHURJOPAY_API, SP_CALLBACK):
+        self.SP_USERNAME = SP_USERNAME
+        self.SP_PASSWORD = SP_PASSWORD
+        self.SHURJOPAY_API = SHURJOPAY_API
+        self.SP_CALLBACK = SP_CALLBACK
 
 
 class ShurjoPayTokenModel(object):
