@@ -2,12 +2,20 @@ from shurjopay_plugin import ShurjoPayPlugin
 from models import *
 import json
 import unittest
+import os
+import environ
 
 with open("test/PaymentRequest.json", "r") as read_file:
     payment_request_json = json.load(read_file)
 
-'''
 
+basedir = os.path.dirname(os.path.dirname(
+    os.path.dirname(os.path.abspath(__file__))))
+
+env = environ.Env()
+env.read_env(os.path.join(basedir, '.env'))
+
+'''
 {
     "prefix": "sp",
     "amount": 10,
@@ -20,8 +28,6 @@ with open("test/PaymentRequest.json", "r") as read_file:
     "customer_post_code": "1212",
     "client_ip": "102.101.1.1"
 }
-
-
 '''
 
 
@@ -31,7 +37,13 @@ class TestShurjoPayPlugin(unittest.TestCase):
     '''
 
     def setUp(self):
-        self._plugin = ShurjoPayPlugin()
+        sp_config = ShurjoPayConfigModel(
+            SP_USERNAME=env('SP_USERNAME'),
+            SP_PASSWORD=env('SP_PASSWORD'),
+            SHURJOPAY_API=env('SHURJOPAY_API'),
+            SP_CALLBACK=env('SP_CALLBACK')
+        )
+        self._plugin = ShurjoPayPlugin(sp_config)
         self._payment_request = PaymentRequestModel(**payment_request_json)
 
     def test_make_payment(self):
