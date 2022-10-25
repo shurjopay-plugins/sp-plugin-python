@@ -3,10 +3,9 @@
  Author Mahabubul Hasan
  Since 2022-10-10
 '''
-import logging
-from models import ShurjoPayTokenModel, PaymentDetailsModel, VerifiedPaymentDetailsModel
-from shurjopay_config import ShurjoPayConfig
-from endpoints import Endpoints
+from .models import ShurjoPayTokenModel, PaymentDetailsModel, VerifiedPaymentDetailsModel
+from .logger_config import ShurjoPayConfig
+from .endpoints import Endpoints
 import requests
 import datetime
 import json
