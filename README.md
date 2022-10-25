@@ -8,12 +8,6 @@ This document has been prepared by Shurjomukhi Limited to enable the online merc
 
 This document is intended for the technical personnel of merchants and service providers that want to integrate a new online payment gateway using python plugin provided by Shurjopay.
 
-## Prerequisite
-
-```
-◼️ Shurjopay Version 2.0
-```
-
 ## Integration
 
 ShurjoPay Online payment gateway has several APIs which need to be integrated by merchants for accessing different services. The available services are:
@@ -36,7 +30,7 @@ ShurjoMukhi Limited developed plugin for integration with java based. shurjoPay 
 ### Before All:
 
 First of all, developers have to configure a .env file in their respective project with four variables, which are SP_USERNAME,
-SP_PASSWORD, SHURJOPAY_API, SP_CALLBACK
+SP_PASSWORD, SHURJOPAY_API, SP_CALLBACK and use these to configure the ShurjopayConfigModel to create a instance of Shurjopay python plugin
 
 - **Example**
 
