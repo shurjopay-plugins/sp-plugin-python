@@ -6,10 +6,10 @@
 import requests
 import datetime
 import json
-from models import ShurjoPayTokenModel, PaymentDetailsModel, VerifiedPaymentDetailsModel
-from logger_config import logger
-from endpoints import Endpoints
-from shurjopay_exceptions import AuthException,PaymentException
+from .models import ShurjoPayTokenModel, PaymentDetailsModel, VerifiedPaymentDetailsModel
+from .logger_config import logger
+from .endpoints import Endpoints
+from .shurjopay_exceptions import AuthException,PaymentException
 
 class ShurjoPayPlugin(object):
     TOKEN_END_POINT = Endpoints.TOKEN.value
