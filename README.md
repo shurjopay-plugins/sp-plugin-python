@@ -6,7 +6,7 @@ This document has been prepared by Shurjomukhi Limited to enable the online merc
 
 ## Audience
 
-This document is intended for the technical personnel of merchants and service providers that want to integrate a new online payment gateway using python plugin provided by Shurjopay.
+This document is intended for the technical personnel of merchants and service providers that want to integrate a new online payment gateway using python plugin provided by shurjoPay.
 
 ## Integration
 
@@ -45,13 +45,15 @@ SP_CALLBACK=https://sandbox.shurjopayment.com/response/
 
 ### Installation
 
+> 📝 **NOTE** Install the package inside your python project environment
+
 Use the package manager `pip` to install Shuropay python package
 
 ```
-pip install shurjopay-V3
+pip install shurjopay-v3
 ```
 
-To install Python package from github, you need to clone that repository.
+To install Python package from github, you need to clone the repository.
 
 ```
 git clone https://github.com/shurjopay-plugins/sp-plugin-python
@@ -60,10 +62,28 @@ git clone https://github.com/shurjopay-plugins/sp-plugin-python
 Then just run the setup.py file from that directory,
 
 ```
-sudo python setup.py install
+python setup.py install
+```
+
+### Configuration
+
+Configure shurjoPay Config-Model to create an instance of surjoPay Class
+
+```python
+
+sp_config = ShurjoPayConfigModel(
+        SP_USERNAME = settings.SP_USERNAME,
+        SP_PASSWORD = settings.SP_PASSWORD,
+        SHURJOPAY_API = settings.SHURJOPAY_API,
+        SP_CALLBACK = settings.SP_CALLBACK)
+
+shurjopay = ShurjoPayPlugin(sp_config)
+
 ```
 
 ---
+
+# Use Case
 
 ## Make Payment
 
@@ -86,6 +106,7 @@ payment_request = PaymentRequestModel(
             customer_post_code='1212',
             client_ip='127.456.1.1'
         )
+payment_details = shurjopay.make_payment(payment_request)
 ```
 
 - Payment Request Response
@@ -123,32 +144,36 @@ Parameter: sp_order_id
 - Response
 
 ```
-    order_id=sp32aad7c6dad7a
-	currency=BDT
-	amount=10
-	payable_amount=10
-	discount_amount=null
-	discpercent=0
-	usd_mmt=0
-	usd_rate=0
-	method=null
-	sp_msg=initiated
-	sp_code=1068
-	name=mahabubul
-	email=mahabubul@example.com
-	address=Holding no-N/A, Road-16, Gulshan-1, Dhaka
-	city=Dhaka
-	value1=value1
-	value2=value2
-	value3=value3
-	value4=value4
+order_id=sp32aad7c6dad7a
+currency=BDT
+amount=10
+payable_amount=10
+discount_amount=null
+discpercent=0
+usd_mmt=0
+usd_rate=0
+method=null
+sp_msg=initiated
+sp_code=1068
+name=mahabubul
+email=mahabubul@example.com
+address=Holding no-N/A, Road-16, Gulshan-1, Dhaka
+city=Dhaka
+value1=value1
+value2=value2
+value3=value3
+value4=value4
 
 ```
 
-## License
+## Documentation
 
-[MIT](https://choosealicense.com/licenses/mit/)
+For more details - [visit here](https://github.com/shurjopay-plugins)
 
 ## Contacts
 
 [Shurjopay](https://shurjopay.com.bd/#contacts)
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
