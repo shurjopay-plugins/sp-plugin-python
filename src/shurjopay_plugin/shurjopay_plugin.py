@@ -9,7 +9,8 @@ import json
 from .models import ShurjoPayTokenModel, PaymentDetailsModel, VerifiedPaymentDetailsModel
 from .logger_config import logger
 from .endpoints import Endpoints
-from .shurjopay_exceptions import AuthException,PaymentException
+from .shurjopay_exceptions import AuthException, PaymentException
+
 
 class ShurjoPayPlugin(object):
     TOKEN_END_POINT = Endpoints.TOKEN.value
@@ -32,9 +33,9 @@ class ShurjoPayPlugin(object):
 
     def authenticate(self):
         '''
-        Return authorization token for shurjoPay payment gateway system.
-        Return authentication details with valid token
-        Throws Exception if authentication fails
+        returns authorization token for shurjoPay payment gateway system.
+        returns authentication details with valid token
+        throws Exception if authentication fails
         '''
         url = self.SHURJOPAY_API + self.TOKEN_END_POINT
         payloads = {
@@ -63,7 +64,7 @@ class ShurjoPayPlugin(object):
         '''
         This method is used to make payment.
         @param Payment request object. See the shurjoPay version-2 integration documentation(beta).docx for details.
-        @return Payment response object containing redirect URL to reach payment page, order id to verify order in shurjoPay.
+        @returns Payment response object containing redirect URL to reach payment page, order id to verify order in shurjoPay.
         @throws Exception if payment fails due to token expired or invalid credentials.
         '''
         try:
@@ -93,7 +94,8 @@ class ShurjoPayPlugin(object):
             except PaymentException as e:
                 logger.error(
                     f'Shurjopay Payment Request Failed!: {e}')
-                raise PaymentException(f'Shurjopay Payment Request Failed!: {e}')
+                raise PaymentException(
+                    f'Shurjopay Payment Request Failed!: {e}')
         else:
             logger.warning('Token Exired!')
             raise AuthException(self.AUTH_ERROR_MSG)
@@ -101,9 +103,9 @@ class ShurjoPayPlugin(object):
     def verify_payment(self, order_id):
         '''
         This method is used to verify order by order id which is got by payment response object
-        @Param order_id
-        @Return order object if order is verified 
-        @Throws Exception if order verification fails due to token expired or invalid credentials.
+        @param order_id
+        @return order object if order is verified 
+        @throws Exception if order verification fails due to token expired or invalid credentials.
         '''
         try:
             if self.AUTH_TOKEN == None or self.is_token_valid() == False:
@@ -133,7 +135,8 @@ class ShurjoPayPlugin(object):
             except PaymentException as e:
                 logger.error(
                     f'Shurjopay Payment Verification failed: {e}')
-                raise PaymentException(f'Shurjopay Payment Verification failed: {e}')
+                raise PaymentException(
+                    f'Shurjopay Payment Verification failed: {e}')
         else:
             logger.warning('Token Exired!')
             raise AuthException(self.AUTH_ERROR_MSG)
@@ -142,9 +145,9 @@ class ShurjoPayPlugin(object):
         '''
          This method is used to check payment status by order id which is got by payment response object
          @Param order_id
-         @Return order object if order is verified successfully
-         @Return None if order is not verified
-         @Throws Exception if order verification fails due to token expired or invalid credentials.
+         @returns order object if order is verified successfully
+         @returns None if order is not verified
+         @throws Exception if order verification fails due to token expired or invalid credentials.
         '''
         try:
             if self.AUTH_TOKEN == None or self.is_token_valid() == False:
@@ -173,7 +176,8 @@ class ShurjoPayPlugin(object):
             except PaymentException as e:
                 logger.error(
                     f'Shurjopay Payment Checking failed: {e}')
-                raise PaymentException(f'Shurjopay Payment Checking failed: {e}')
+                raise PaymentException(
+                    f'Shurjopay Payment Checking failed: {e}')
         else:
             logger.warning('Token Exired!')
             raise AuthException(self.AUTH_ERROR_MSG)
@@ -181,8 +185,8 @@ class ShurjoPayPlugin(object):
     def _map_payment_request(self, paymentReq):
         '''
         This method is used to map payment request object to payment request model
-        @Param payment_request
-        @Return payment request model
+        @param payment_request
+        @returns payment request model
         '''
         return {
             'token': self.AUTH_TOKEN.token,

@@ -1,7 +1,5 @@
-from email.mime import base
 import os
 import logging
-import datetime
 
 '''
     Logger configurations for Shurjopay
