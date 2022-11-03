@@ -1,9 +1,9 @@
-from shurjopay_plugin import ShurjoPayPlugin
-from models import *
 import json
 import unittest
 import os
 import environ
+from .shurjopay_plugin import ShurjoPayPlugin
+from .models import *
 
 with open("test/PaymentRequest.json", "r") as read_file:
     payment_request_json = json.load(read_file)
@@ -118,7 +118,7 @@ class TestShurjoPayPlugin(unittest.TestCase):
         self.assertEqual('2021-08-29 17:47:06',
                          verified_payment_details.date_time, "Date Time is not equal")
 
-    def test_get_payment_status(self):
+    def test_check_payment_status(self):
         verified_payment_status = self._plugin.check_payment_status(
             'spay612b73a935ab1')
 
