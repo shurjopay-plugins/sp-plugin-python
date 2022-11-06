@@ -20,7 +20,7 @@ class ShurjoPayTokenModel(object):
 
 
 class PaymentRequestModel(object):
-    def __init__(self, prefix, amount, order_id,  currency, customer_name, customer_address, customer_phone, customer_city, customer_post_code, client_ip) -> None:
+    def __init__(self, prefix, amount, order_id,  currency, customer_name, customer_address, customer_phone, customer_city, customer_post_code) -> None:
         self.prefix = prefix
         self.amount = amount
         self.order_id = order_id
@@ -30,7 +30,6 @@ class PaymentRequestModel(object):
         self.customer_phone = customer_phone
         self.customer_city = customer_city
         self.customer_post_code = customer_post_code
-        self.client_ip = client_ip
 
 
 class PaymentDetailsModel(object):
@@ -51,7 +50,7 @@ class PaymentDetailsModel(object):
 
 
 class VerifiedPaymentDetailsModel(object):
-    def __init__(self, id, order_id, currency, amount, payable_amount,received_amount, discsount_amount, disc_percent, usd_amt, usd_rate, card_holder_name, card_number, phone_no, bank_trx_id, invoice_no, bank_status, customer_order_id, sp_message, sp_code, name, email, address, city, value1, value2, value3, value4, transaction_status, method, date_time):
+    def __init__(self, id, order_id, currency, amount, payable_amount, received_amount, discsount_amount, disc_percent, usd_amt, usd_rate, card_holder_name, card_number, phone_no, bank_trx_id, invoice_no, bank_status, customer_order_id, sp_message, sp_code, name, email, address, city, value1, value2, value3, value4, transaction_status, method, date_time):
         self.id = id
         self.order_id = order_id
         self.currency = currency

@@ -4,31 +4,16 @@ import os
 import environ
 from .shurjopay_plugin import ShurjoPayPlugin
 from .models import *
+from .netwotk_interface import getIP
 
-with open("test/PaymentRequest.json", "r") as read_file:
+with open("sample_message/PaymentRequest.json", "r") as read_file:
     payment_request_json = json.load(read_file)
-
 
 basedir = os.path.dirname(os.path.dirname(
     os.path.dirname(os.path.abspath(__file__))))
 
 env = environ.Env()
 env.read_env(os.path.join(basedir, '.env'))
-
-'''
-{
-    "prefix": "sp",
-    "amount": 10,
-    "order_id": "sp315689",
-    "currency": "BDT",
-    "customer_name": "ATM Fahim",
-    "customer_address": "mohakhali",
-    "customer_phone": "01717302935",
-    "customer_city": "Dhaka",
-    "customer_post_code": "1212",
-    "client_ip": "102.101.1.1"
-}
-'''
 
 
 class TestShurjoPayPlugin(unittest.TestCase):
@@ -69,7 +54,7 @@ class TestShurjoPayPlugin(unittest.TestCase):
             'Dhaka', self._payment_request_details.customer_city, 'Customer City is not equal')
 
         self.assertEqual(
-            '102.101.1.1', self._payment_request_details.client_ip, "Client IP is not equal")
+            getIP(), self._payment_request_details.client_ip, "Client IP is not equal")
 
     def test_verify_payment(self):
 
