@@ -39,6 +39,7 @@ class ShurjoPayPlugin(object):
 
     def authenticate(self):
         '''
+        This method is used to authenticate with shurjoPay.
         returns authorization token for shurjoPay payment gateway system.
         returns authentication details with valid token
         throws Exception if authentication fails
@@ -62,7 +63,7 @@ class ShurjoPayPlugin(object):
             raise AuthException(AUTHENTICATION_FAILED[1], e)
 
     def is_token_valid(self):
-        # check if token is valid or not by comparing token expiration time
+        '''Check if token is valid or not by comparing token expiry time with current time'''
         return True if (datetime.datetime.strptime(
                        self.AUTH_TOKEN.token_create_time, "%Y-%m-%d %I:%M:%S%p") + datetime.timedelta(milliseconds=self.AUTH_TOKEN.expires_in)) > datetime.datetime.now() else False
 

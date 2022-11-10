@@ -6,12 +6,14 @@ from .shurjopay_plugin import ShurjoPayPlugin
 from .models import *
 from .netwotk_interface import getIP
 
+#load payemnt request data from json file
 with open("sample_message/PaymentRequest.json", "r") as read_file:
     payment_request_json = json.load(read_file)
 
+#definig base directory
 basedir = os.path.dirname(os.path.dirname(
     os.path.dirname(os.path.abspath(__file__))))
-
+#loading environment variables
 env = environ.Env()
 env.read_env(os.path.join(basedir, '.env'))
 
@@ -22,6 +24,7 @@ class TestShurjoPayPlugin(unittest.TestCase):
     '''
 
     def setUp(self):
+        #Shurjopay config for Instatiating ShurjopayPlugin
         sp_config = ShurjoPayConfigModel(
             SP_USERNAME=env('SP_USERNAME'),
             SP_PASSWORD=env('SP_PASSWORD'),
@@ -32,6 +35,7 @@ class TestShurjoPayPlugin(unittest.TestCase):
         self._payment_request = PaymentRequestModel(**payment_request_json)
 
     def test_make_payment(self):
+        # unit testing for make payment
         self._payment_request_details = self._plugin.make_payment(
             self._payment_request)
 
@@ -57,7 +61,7 @@ class TestShurjoPayPlugin(unittest.TestCase):
             getIP(), self._payment_request_details.client_ip, "Client IP is not equal")
 
     def test_verify_payment(self):
-
+        #unit testing for verify payment
         verified_payment_details = self._plugin.verify_payment(
             'spay612b73a935ab1')
 
@@ -104,6 +108,7 @@ class TestShurjoPayPlugin(unittest.TestCase):
                          verified_payment_details.date_time, "Date Time is not equal")
 
     def test_check_payment_status(self):
+        #unit testing for check payment status
         verified_payment_status = self._plugin.check_payment_status(
             'spay612b73a935ab1')
 
