@@ -1,3 +1,4 @@
+# ShurjoPay Status Codes and Messages for ShurjoPay Plugin
 POST_SUCCESS = ("200", "OK")
 SHURJOPAY_SUCCESS = ("1000", "Shurjopay transaction successful.")
 PAYMENT_FAILED = ("1001", "Shurjopay transaction failed.")
