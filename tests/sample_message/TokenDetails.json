@@ -1,0 +1,10 @@
+{
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3NhbmRib3guc2h1cmpvcGF5bWVudC5jb20vYXBpL2xvZ2luIiwiaWF0IjoxNjY2MDgyMTU3LCJleHAiOjE2NjYwODU3NTcsIm5iZiI6MTY2NjA4MjE1NywianRpIjoiQVdKYUswcmREQXZ6bHVodiIsInN1YiI6IjEiLCJwcnYiOiI4MDVmMzllZWZjYzY4YWZkOTgyNWI0MTIyN2RhZDBhMDc2YzQ5NzkzIn0.pcaU-haEWyF4gfiLDTeiNISQgUGVNqjTIkzowSzkNAg",
+    "store_id": 1,
+    "execute_url": "https://sandbox.shurjopayment.com/api/secret-pay",
+    "token_type": "Bearer",
+    "sp_code": "200",
+    "message": "Ok",
+    "token_create_time": "2022-10-18 02:35:57pm",
+    "expires_in": 3600
+}
