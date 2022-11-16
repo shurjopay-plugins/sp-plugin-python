@@ -11,7 +11,7 @@ logger.info("ShurjopayConfig initialized")
 log_fileName = os.path.join(basedir, 'logs')+'/shurjopay.log'
 os.makedirs(os.path.dirname(log_fileName), exist_ok=True)
 logging.basicConfig(
-    level=logging.DEBUG,
+    level=logging.ERROR,
     format=" '%(asctime)s : %(levelname)s :gs %(name)s : %(funcName)s  %(message)s'",
     handlers=[
         logging.FileHandler(log_fileName, mode="a", encoding=None),
