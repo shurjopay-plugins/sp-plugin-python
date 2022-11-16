@@ -205,8 +205,8 @@ class ShurjoPayPlugin(object):
         '''
         return {
             'token': self.AUTH_TOKEN.token,
-            'return_url': self.SP_CALLBACK+Endpoints.RETURN,
-            'cancel_url': self.SP_CALLBACK+Endpoints.CANCEL,
+            'return_url': self.SP_CALLBACK,
+            'cancel_url': self.SP_CALLBACK,
             'store_id': self.AUTH_TOKEN.store_id,
             'prefix': paymentReq.prefix,
             'amount': paymentReq.amount,

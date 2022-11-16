@@ -7,7 +7,5 @@ class Endpoints(str, Enum):
     MAKE_PMNT = "secret-pay"
     VERIFIED_ORDER = "verification"
     PMNT_STAT = "payment-status"
-    RETURN = "return"
-    CANCEL = "cancel"
 
     
