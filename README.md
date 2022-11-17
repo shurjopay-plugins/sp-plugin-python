@@ -32,7 +32,7 @@ ShurjoMukhi Limited developed plugin for integration with java based. shurjoPay 
 First of all, developers have to configure a .env file in their respective project with four variables, which are SP_USERNAME,
 SP_PASSWORD, SHURJOPAY_API, SP_CALLBACK and use these to configure the ShurjopayConfigModel to create a instance of Shurjopay python plugin
 
-- **Example**
+- **Example Projcet**
 
 ```env
 SP_USERNAME=sp_sandbox
@@ -166,9 +166,15 @@ value4=value4
 
 ```
 
+## Example Apps
+
+### [Django](https://github.com/shurjopay-plugins/sp-plugin-usage-examples/tree/dev/django-app-python-plugin)
+
 ## Documentation
 
-For more details - [visit here](https://github.com/shurjopay-plugins)
+### [Developer-Guideline](doc/sp_plugin_developer_guideline.md)
+
+### [Github](https://github.com/shurjopay-plugins)
 
 ## Contacts
 
