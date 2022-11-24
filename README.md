@@ -27,22 +27,6 @@ ShurjoMukhi Limited developed plugin for integration with java based. shurjoPay 
 
 ## How to implement
 
-### Before All:
-
-First of all, developers have to configure a .env file in their respective project with four variables, which are SP_USERNAME,
-SP_PASSWORD, SHURJOPAY_API, SP_CALLBACK and use these to configure the ShurjopayConfigModel to create a instance of Shurjopay python plugin
-
-- **Example Projcet**
-
-```env
-SP_USERNAME=sp_sandbox
-SP_PASSWORD=pyyk97hu&6u6
-SHURJOPAY_API=https://sandbox.shurjopayment.com/api/
-SP_CALLBACK=https://sandbox.shurjopayment.com/response/
-```
-
-> 📝 **NOTE** For Shurjopay version 3 live engine integration all necessary credential will be given to merchant after subscription completed on Shurjopay gateway.
-
 ### Installation
 
 > 📝 **NOTE** Install the package inside your python project environment
@@ -67,6 +51,35 @@ python setup.py install
 
 ### Configuration
 
+> 📝 **NOTE** For Shurjopay version 3 live engine integration all necessary credential will be given to merchant after subscription completed on Shurjopay gateway.
+
+First of all, developers have to configure a .env file in their respective project with four variables, which are SP_USERNAME,
+SP_PASSWORD, SHURJOPAY_API, SP_CALLBACK and use these to configure the ShurjopayConfigModel to create a instance of Shurjopay python plugin
+
+- **Example Env Configurations**
+
+```env
+SP_USERNAME=sp_sandbox
+SP_PASSWORD=pyyk97hu&6u6
+SHURJOPAY_API=https://sandbox.shurjopayment.com/api/
+SP_CALLBACK=https://sandbox.shurjopayment.com/api/response
+SP_LOG_DIR=log/shurjopay/shurjopay.log
+```
+
+Then load the shurjopay environment variables from .env file
+
+```pythpn
+
+env = environ.Env()
+environ.Env.read_env(BASE_DIR / '.env')
+SP_USERNAME=env('SP_USERNAME')
+SP_PASSWORD=env('SP_PASSWORD')
+SHURJOPAY_API=env('SHURJOPAY_API')
+SP_CALLBACK=env('SP_CALLBACK')
+SP_LOG=env('SP_LOG_DIR')
+
+```
+
 Configure shurjoPay Config-Model to create an instance of surjoPay Class
 
 ```python
@@ -75,11 +88,16 @@ sp_config = ShurjoPayConfigModel(
         SP_USERNAME = settings.SP_USERNAME,
         SP_PASSWORD = settings.SP_PASSWORD,
         SHURJOPAY_API = settings.SHURJOPAY_API,
-        SP_CALLBACK = settings.SP_CALLBACK)
+        SP_CALLBACK = settings.SP_CALLBACK,
+        SP_LOG_DIR = settings.SP_LOG_DIR,)
 
 shurjopay = ShurjoPayPlugin(sp_config)
 
 ```
+
+## Example Apps
+
+### [Django](https://github.com/shurjopay-plugins/sp-plugin-usage-examples/tree/dev/django-app-python-plugin)
 
 ---
 
@@ -165,10 +183,6 @@ value3=value3
 value4=value4
 
 ```
-
-## Example Apps
-
-### [Django](https://github.com/shurjopay-plugins/sp-plugin-usage-examples/tree/dev/django-app-python-plugin)
 
 ## Documentation
 
