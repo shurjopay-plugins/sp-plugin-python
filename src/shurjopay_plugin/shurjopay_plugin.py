@@ -6,47 +6,56 @@
 import requests
 import datetime
 import json
-from .models import ShurjoPayTokenModel, PaymentDetailsModel, VerifiedPaymentDetailsModel
-from .logger_config import logger
-from .endpoints import Endpoints
-from .shurjopay_exceptions import AuthException, PaymentException
-from .shurjopay_status_codes import *
+from .models import *
+from .logger_config import ShurjopayLoggerConfig
+from .utils import Endpoints, ShurjopayStatus
+from .shurjopay_exceptions import ShurjoPayException
 from .netwotk_interface import getIP
 
 
-class ShurjoPayPlugin(object):
+class ShurjopayPlugin(object):
     '''
         ShurjoPay Python Plugin for shurjoPay Gateway Services.
         Includes all the methods - authenticate, makepayemnt, verify payment, check payment for shurjoPay payment gateway system.
         Intrigrate the plugin with your python application to make payment with shurjoPay.
-        For more details view the shurjoPay version-3 integration documentation : https://docs.google.com/document/d/19J4HE0j873nBJqcN-uRBYYAa_qBA3p1XSY-jy2fwvEE/edit .
-        
+        For more details view the shurjoPay version-3 integration documentation : https://docs.google.com/document/d/19J4HE0j873nBJqcN-uRBYYAa_qBA3p1XSY-jy2fwvEE/edit .    
     '''
     # API Endpoints of shurjoPay API
     TOKEN_END_POINT = Endpoints.TOKEN.value
     VERIFICATION_END_POINT = Endpoints.VERIFIED_ORDER.value
-    PAYMENT_STATUS_END_POINT = Endpoints.PMNT_STAT.value
-    MAKE_PAYMENT_END_POINT = Endpoints.MAKE_PMNT.value
-    AUTH_TOKEN = None
+    PAYMENT_STATUS_END_POINT = Endpoints.PAYMENT_STATUS.value
+    MAKE_PAYMENT_END_POINT = Endpoints.MAKE_PAYMENT.value
+    AUTH_TOKEN = None # Shurjopay Token Model
 
+    # Status Message
+    AUTHENTICATION_SUCCESS = 'Marchent Authentication Successful!'
+    AUTHENTICATION_FAILED = 'Marchent Authentication Failed!'
+    AUTHENTICATION_TOKEN_EXPIRED = 'Shurjopay Token Expired!'
+    PAYMENT_REQUEST_SUCCESS = 'Shurjopay Payment Request Successful!'
+    PAYMENT_REQUEST_FAILED = 'Shurjopay Payment Request Failed!'
+    PAYMENT_VERIFICATION_FAILED = 'Shurjopay Payment Verification Failed!'
+    PAYMENT_CHECK_FAILED = 'Shurjopay Payment Checking Failed!'
 
-
+    
     def __init__(self, shurjoPayConfigModel) -> None:
-        # Initialize the plugin with shurjoPayConfigModel
+        # Initialize the  secret keys for plugin configuration
         self.SP_USERNAME = shurjoPayConfigModel.SP_USERNAME
         self.SP_PASSWORD = shurjoPayConfigModel.SP_PASSWORD
         self.SHURJOPAY_API = shurjoPayConfigModel.SHURJOPAY_API
         self.SP_CALLBACK = shurjoPayConfigModel.SP_CALLBACK
-        pass
+        self.SP_LOG_DIR = shurjoPayConfigModel.SP_LOG_DIR
+        # Initialize the logger 
+        self.logger = ShurjopayLoggerConfig(self.SP_LOG_DIR).get_logger()
+
 
     def authenticate(self):
         '''
         This method is used to authenticate with shurjoPay.
-        returns authorization token for shurjoPay payment gateway system.
-        returns authentication details with valid token
-        throws Exception if authentication fails
+        return authorization token for shurjoPay payment gateway system.
+        return authentication details with valid token
+        raise ShurjoPayException if authentication fails
         '''
-        url = self.SHURJOPAY_API + self.TOKEN_END_POINT
+        url = self.SHURJOPAY_API + self.TOKEN_END_POINT #  Get-token URL of shurjoPay API
         payloads = {
             "username": self.SP_USERNAME,
             "password": self.SP_PASSWORD,
@@ -54,15 +63,15 @@ class ShurjoPayPlugin(object):
         try:
             response = requests.post(url, data=payloads)
             token_details = response.json()
-            if (int)(token_details['sp_code']) == SHURJOPAY_STATUS_CODES['AUTH_SUCCESS'][0]:
-                logger.info(
-                    'Merchant Authentication Successful!')
-                self.AUTH_TOKEN = ShurjoPayTokenModel(**token_details)
+            if (int)(token_details['sp_code']) == ShurjopayStatus.AUTH_SUCCESS.value: # Check if authentication is successful
+                self.logger.info(f'sp_code:{token_details["sp_code"]}, sp_message:{token_details["message"]}')
+                self.AUTH_TOKEN = ShurjoPayTokenModel(**token_details) # Map token details to token model
                 return self.AUTH_TOKEN
-            raise AuthException(token_details['sp_code'],'Authentication Failed!')
-        except AuthException as exception:
-            logger.error('Merchant Authentication Failed!')
-            raise AuthException('Merchant Authentication Failed!', exception)
+            self.logger.error(f'sp_code:{token_details["sp_code"]}, sp_message:{token_details["message"]}')
+            raise ShurjoPayException(token_details['sp_code'], token_details['message'])
+        except ShurjoPayException as ex:
+            self.logger.error(f'{self.AUTHENTICATION_FAILED}, {ex}') # Log expception error
+            raise ShurjoPayException(self.AUTHENTICATION_FAILED, ex) # Raise exception if authentication fails
 
     def is_token_valid(self):
         '''Check if token is valid or not by comparing token expiry time with current time'''
@@ -72,130 +81,111 @@ class ShurjoPayPlugin(object):
     def make_payment(self, paymentReq):
         '''
         This method is used to make payment request.
-        @param Payment request object. See the shurjoPay version-2 integration documentation(beta).docx for details.
-        @returns Payment response object containing redirect URL to reach payment page, order id to verify order in shurjoPay.
-        @raise AuthException if payment fails due to token expired or invalid credentials.
-        @raise PaymentException  if payment fails due to invalid payment request.   
+        @param PaymentRequest object.
+        @return PaymentDetails object containing redirect URL to reach payment page, order id to verify order in shurjoPay.
+        @return None if payment request fails.
+        @raise ShurjoPayException if payment fails due to token expired or invalid credentials.
+        @raise ShurjoPayException  if payment fails due to invalid payment request.   
         '''
         try:
-            if self.AUTH_TOKEN == None or self.is_token_valid() == False:
-                self.AUTH_TOKEN = self.authenticate()
-        except AuthException as exception:
-            logger.error(
-                'Shurjopay Authentication Failed!')
-            raise AuthException('Shurjopay Authentication Failed!', exception)
-
-        url = self.SHURJOPAY_API + self.MAKE_PAYMENT_END_POINT
+            if self.AUTH_TOKEN == None or self.is_token_valid() == False: # Check if token is valid or expired
+                self.AUTH_TOKEN = self.authenticate() # Authenticate with shurjoPay
+        except ShurjoPayException as ex:
+            self.logger.error(f'{self.AUTHENTICATION_FAILED}: {ex}') 
+            raise 
+        url = self.SHURJOPAY_API + self.MAKE_PAYMENT_END_POINT # Make payment URL of shurjoPay API
         headers = {
             'content-type': 'application/json',
-            'Authorization': f'{self.AUTH_TOKEN.token_type} {self.AUTH_TOKEN.token}'
+            'Authorization': f'{self.AUTH_TOKEN.token_type} {self.AUTH_TOKEN.token}' # Add toekn type and value to authorization header
         }
-        payloads = self._map_payment_request(paymentReq)
-
-        if self.is_token_valid():
+        payloads = self._map_payment_request(paymentReq) # Map payment request 
+        if self.is_token_valid(): # Check if token is expired
             try:
-                response = requests.post(
-                    url, headers=headers, data=json.dumps(payloads))
+                response = requests.post(url, headers=headers, data=json.dumps(payloads))
                 response_json = response.json()
-                if response_json['checkout_url'] == None:
-                    raise PaymentException(
-                        'Payment Failed!', get_status_by_code(response_json['sp_code']))
-                logger.info(
-                    'Shurjopay Payment Request Successful!')
-                return PaymentDetailsModel(**response_json)
-            except PaymentException as e:
-                logger.error(
-                    f'Shurjopay Payment Request Failed!: {e}')
-                raise PaymentException(
-                    f'Shurjopay Payment Request Failed!: {e}')
+                if response_json['checkout_url'] == None: # Check if payment request is successful
+                    self.logger.error(self.PAYMENT_REQUEST_FAILED)
+                    return None
+                self.logger.info(self.PAYMENT_REQUEST_SUCCESS)
+                return PaymentDetailsModel(**response_json) # Map payment details to payment details model
+            except ShurjoPayException as ex:
+                self.logger.error(f'{self.PAYMENT_REQUEST_FAILED}: {ex}')
+                raise ShurjoPayException(self.PAYMENT_REQUEST_FAILED, ex)
         else:
-            logger.warning('Token Exired!')
-            raise AuthException('Marchent Authentication Failed!', 'Token Expired!')
+            self.logger.warning(f'{self.AUTHENTICATION_FAILED}: {self.AUTHENTICATION_TOKEN_EXPIRED}')
+            raise ShurjoPayException(self.AUTHENTICATION_FAILED, self.AUTHENTICATION_TOKEN_EXPIRED) # Raise exception if token is expired
 
     def verify_payment(self, order_id):
         '''
-        This method is used to verify order by order id which is got by payment response object
+        verify order using order id which is got by payment response object
         @param order_id
         @return order object if order is verified 
-        @raise AuthException if order verification fails due to token expired or invalid credentials.
-        @raise PaymentException  if order verification fails due to invalid order id.
+        @return None if order is not verified
+        @raise ShurjoPayException if order verification fails due to token expired or invalid credentials.
+        @raise ShurjoPayException  if order verification fails due to invalid order id.
         '''
         try:
-            if self.AUTH_TOKEN == None or self.is_token_valid() == False:
-                self.AUTH_TOKEN = self.authenticate()
-        except AuthException as exception:
-            logger.error(
-                'Marchent Authentication Faild!')
-            raise AuthException('Marchent Authentication Faild!', exception)
-
-        url = self.SHURJOPAY_API + self.VERIFICATION_END_POINT
+            if self.AUTH_TOKEN == None or self.is_token_valid() == False: # Check if token is valid or expired
+                self.AUTH_TOKEN = self.authenticate() # Authenticate with shurjoPay
+        except ShurjoPayException as ex:
+            self.logger.error(self.AUTHENTICATION_FAILED, ex)
+            raise 
+        url = self.SHURJOPAY_API + self.VERIFICATION_END_POINT # Verification URL of shurjoPay API
         headers = {'content-type': 'application/json',
                    'Authorization': f'{self.AUTH_TOKEN.token_type} {self.AUTH_TOKEN.token}'}
-
         payloads = {'order_id': order_id}
-
         if self.is_token_valid():
             try:
-                response = requests.post(
-                    url, headers=headers, data=json.dumps(payloads))
+                response = requests.post(url, headers=headers, data=json.dumps(payloads))
                 response_json = response.json()
-                response_json = response_json[0]
-                sp_code = (int)(response_json['sp_code'])
-                if sp_code != SHURJOPAY_STATUS_CODES['SHURJOPAY_SUCCESS'][0]:
-                    logger.error(f'Shurjopay Payment Faild! : {sp_code} - {get_status_by_code(sp_code)}')
-                    raise PaymentException(sp_code, get_status_by_code(sp_code))
-                logger.info(
-                    'Shurjopay Payment verified!')
-                return VerifiedPaymentDetailsModel(**response_json)
-
-            except PaymentException as exception:
-                logger.error(
-                    f'Shurjopay Payment Verification failed!',exception)
-                raise PaymentException(
-                    f'Shurjopay Payment Verification failed!',exception)
+                payment_details = response_json[0]
+                if(payment_details['sp_code'] == ShurjopayStatus.INVALID_ORDER_ID.value):
+                    self.logger.info(f'sp_code:{payment_details["sp_code"]}, sp_message:{payment_details["message"]}') 
+                    return None # Return None if order is not verified
+                self.logger.info(f'sp_code:{payment_details["sp_code"]}, sp_message:{payment_details["sp_message"]}')
+                return VerifiedPaymentDetailsModel(**payment_details) # Map payment details to verified payment details model
+            except ShurjoPayException as ex:
+                self.logger.error(f'{self.PAYMENT_VERIFICATION_FAILED}: {ex}')
+                raise ShurjoPayException(self.PAYMENT_VERIFICATION_FAILED,ex)
         else:
-            logger.error('Token Exired!')
-            raise AuthException('Marchent Authentication Failed!', 'Token Expired!')
+            self.logger.warning(f'{self.AUTHENTICATION_FAILED}: {self.AUTHENTICATION_TOKEN_EXPIRED}')
+            raise ShurjoPayException(self.AUTHENTICATION_FAILED, self.AUTHENTICATION_TOKEN_EXPIRED) # Raise exception if token is expired
 
     def check_payment_status(self, order_id):
         '''
-         This method is used to check payment status by order id which is got by payment response object
-         @Param order_id
-         @returns order object if order is verified successfully
-         @returns None if order is not verified
+         Check shurjoPay payment status using order-id which is retreved from callback
+         @param order_id
+         @return order object
+         @retun None if order is not found
          @raise Exception if order verification fails due to token expired or invalid credentials.
-         @raise PaymentException if order verification fails due to invalid order id.
-
+         @raise ShurjoPayException if order verification fails due to invalid order id.
         '''
         try:
-            if self.AUTH_TOKEN == None or self.is_token_valid() == False:
-                self.AUTH_TOKEN = self.authenticate()
-        except AuthException as exception:
-            logger.error(
-                'Marchent Authentication Faild!')
-            raise AuthException('Marchent Authentication Faild!', exception)
-
+            if self.AUTH_TOKEN == None or self.is_token_valid() == False: # Check if token is valid or expired
+                self.AUTH_TOKEN = self.authenticate() # Authenticate with shurjoPay
+        except ShurjoPayException as ex:
+            self.logger.error(self.AUTHENTICATION_FAILED, ex)
+            raise 
         url = self.SHURJOPAY_API + self.PAYMENT_STATUS_END_POINT
         headers = {'content-type': 'application/json',
                    'Authorization': f'{self.AUTH_TOKEN.token_type} {self.AUTH_TOKEN.token}'}
-
         payloads = {'order_id': order_id}
-
         if self.is_token_valid():
             try:
-                response = requests.post(
-                    url, headers=headers, data=json.dumps(payloads))
+                response = requests.post(url, headers=headers, data=json.dumps(payloads))
                 response_json = response.json()
-                logger.info('Shurjopay Payment Status Checked!')
-                return VerifiedPaymentDetailsModel(**response_json[0])
-            except PaymentException as exception:
-                logger.error(
-                    f'Shurjopay Payment Checking failed!',exception)
-                raise PaymentException(
-                    f'Shurjopay Payment Checking failed!',exception)
+                payment_details = response_json[0]
+                if(payment_details['sp_code'] == ShurjopayStatus.INVALID_ORDER_ID.value):
+                    self.logger.info(f'sp_code:  {payment_details["sp_code"]}, sp_message:{payment_details["message"]}')
+                    return None # Return None if order is not found
+                self.logger.info(f'sp_code:  {payment_details["sp_code"]},  sp_message:{payment_details["sp_message"]}')
+                return VerifiedPaymentDetailsModel(**response_json[0]) # Map payment details to verified payment details model
+            except ShurjoPayException as ex:
+                self.logger.error(f'{self.PAYMENT_VERIFICATION_FAILED}: {ex}')
+                raise ShurjoPayException(self.PAYMENT_VERIFICATION_FAILED,ex)
         else:
-            logger.error('Token Exired!')
-            raise AuthException('Marchent Authentication Failed!', 'Token Expired!')
+            self.logger.warning(f'{self.AUTHENTICATION_FAILED}: {self.AUTHENTICATION_TOKEN_EXPIRED}') 
+            raise ShurjoPayException(self.AUTHENTICATION_FAILED, self.AUTHENTICATION_TOKEN_EXPIRED) # Raise exception if token is expired
 
     def _map_payment_request(self, paymentReq):
         '''
