@@ -1,5 +1,5 @@
 from urllib.request import urlopen
-from shurjopay_exceptions import ShurjoPayException
+from .shurjopay_exceptions import ShurjoPayException
 import re as r
 
 def getIP():
