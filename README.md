@@ -43,7 +43,7 @@ git clone https://github.com/shurjopay-plugins/sp-plugin-python
 
 ```
 
-Then instal the plugin inside your project
+Then install the plugin inside your project
 
 ```
 python setup.py install
