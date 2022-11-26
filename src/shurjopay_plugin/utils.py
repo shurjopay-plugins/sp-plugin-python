@@ -11,6 +11,6 @@ class Endpoints(str, Enum):
 class ShurjopayStatus(Enum):
     '''This  enum class contains the status codes of shurjoPay API'''
     AUTH_SUCCESS = 200
-    INVALID_ORDER_ID = 1011
+    INVALID_ORDER_ID = '1011'
 
 
