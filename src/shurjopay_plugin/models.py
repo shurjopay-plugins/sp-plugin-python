@@ -21,6 +21,12 @@ class ShurjoPayTokenModel(object):
         self.expires_in = expires_in # shurjopay token expires in
 
 
+class ShurjoPayMessageModel(object):
+    '''ShurjoPayMessageModel class is used to store shurjoPay message details'''
+    def __init__(self, sp_code, message) -> None:
+        self.sp_code = sp_code # shurjopay status code
+        self.message = message # shurjopay message
+
 class PaymentRequestModel(object):
     '''PaymentRequestModel class is used to store payment request details'''
     def __init__(self, prefix, amount, order_id,  currency, customer_name, customer_address, customer_phone, customer_city, customer_post_code) -> None:
