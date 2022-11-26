@@ -6,11 +6,11 @@
 import requests
 import datetime
 import json
-from .models import *
-from .logger_config import ShurjopayLoggerConfig
-from .utils import Endpoints, ShurjopayStatus
-from .shurjopay_exceptions import ShurjoPayException
-from .netwotk_interface import getIP
+from models import *
+from logger_config import ShurjopayLoggerConfig
+from utils import Endpoints, ShurjopayStatus
+from shurjopay_exceptions import ShurjoPayException
+from netwotk_interface import getIP
 
 
 class ShurjopayPlugin(object):
@@ -137,13 +137,13 @@ class ShurjopayPlugin(object):
         if self.is_token_valid():
             try:
                 response = requests.post(url, headers=headers, data=json.dumps(payloads))
-                response_json = response.json()
-                payment_details = response_json[0]
-                if(payment_details['sp_code'] == ShurjopayStatus.INVALID_ORDER_ID.value):
-                    self.logger.info(f'sp_code:{payment_details["sp_code"]}, sp_message:{payment_details["message"]}') 
-                    return None # Return None if order is not verified
-                self.logger.info(f'sp_code:{payment_details["sp_code"]}, sp_message:{payment_details["sp_message"]}')
-                return VerifiedPaymentDetailsModel(**payment_details) # Map payment details to verified payment details model
+                response = response.json()
+                response = response[0]
+                if(response['sp_code'] == ShurjopayStatus.INVALID_ORDER_ID.value):
+                    self.logger.info(f'sp_code:{response["sp_code"]}, sp_message:{response["message"]}') 
+                    return ShurjoPayMessageModel(**response) # Map message details to message model
+                self.logger.info(f'sp_code:{response["sp_code"]}, sp_message:{response["sp_message"]}')
+                return VerifiedPaymentDetailsModel(**response) # Map payment details to verified payment details model
             except ShurjoPayException as ex:
                 self.logger.error(f'{self.PAYMENT_VERIFICATION_FAILED}: {ex}')
                 raise ShurjoPayException(self.PAYMENT_VERIFICATION_FAILED,ex)
@@ -173,13 +173,13 @@ class ShurjopayPlugin(object):
         if self.is_token_valid():
             try:
                 response = requests.post(url, headers=headers, data=json.dumps(payloads))
-                response_json = response.json()
-                payment_details = response_json[0]
-                if(payment_details['sp_code'] == ShurjopayStatus.INVALID_ORDER_ID.value):
-                    self.logger.info(f'sp_code:  {payment_details["sp_code"]}, sp_message:{payment_details["message"]}')
-                    return None # Return None if order is not found
-                self.logger.info(f'sp_code:  {payment_details["sp_code"]},  sp_message:{payment_details["sp_message"]}')
-                return VerifiedPaymentDetailsModel(**response_json[0]) # Map payment details to verified payment details model
+                response = response.json()
+                if(type(response) == dict and response['sp_code'] == ShurjopayStatus.INVALID_ORDER_ID.value): # Check if order id is invalid
+                    self.logger.info(f'sp_code:{response["sp_code"]}, sp_message:{response["message"]}')
+                    return ShurjoPayMessageModel(**response)
+                response = response[0]
+                self.logger.info(f'sp_code:  {response["sp_code"]},  sp_message:{response["sp_message"]}')
+                return VerifiedPaymentDetailsModel(**response) # Map payment details to verified payment details model
             except ShurjoPayException as ex:
                 self.logger.error(f'{self.PAYMENT_VERIFICATION_FAILED}: {ex}')
                 raise ShurjoPayException(self.PAYMENT_VERIFICATION_FAILED,ex)
