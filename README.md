@@ -1,12 +1,26 @@
 ![alt text](https://shurjopay.com.bd/dev/images/shurjoPay.png)
 
-# ShurjoPay Online Payment API Integration
+# shurjoPay python package (plugin)
+Official shurjoPay python package (plugin) for merchants or service providers to connect with shurjoPay Payment Gateway v2.1 developed and maintained by shurjoMukhi Limited.
 
-This document has been prepared by Shurjomukhi Limited to enable the online merchants to integrate shurjoPay payment gateway. The information contained in this document is proprietary and confidential to Shurjomukhi Limited, for the product Shurjopay.
+This plugin package can be used with any python application or framework (e.g. django, flask, FastAPI etc.).
+
+This plugin package makes it easy for you to integrate with shurjoPay v2.1 with just two method calls:
+
+- make_payment()
+- verify_payment()
 
 ## Audience
 
-This document is intended for the technical personnel of merchants and service providers that want to integrate a new online payment gateway using python plugin provided by shurjoPay.
+This document is intended for the developers and technical personnel of merchants and service providers who want to integrate the shurjoPay online payment gateway using python.
+
+# Usage 
+
+Use `pip` to install this plugin inside your project environment
+
+```
+pip install shurjopay-plugin
+```
 
 ## Integration
 
@@ -25,16 +39,8 @@ ShurjoPay Online payment gateway has several API's which need to be integrated b
 
 ## Installation
 
-> 📝 **NOTE** Install the package inside your project environment
-
-Use `pip` to install shuroPay python plugin
-
 >
 
-```
-pip install shurjopay-v3
-
-```
 
 Or `clone` the repository
 
