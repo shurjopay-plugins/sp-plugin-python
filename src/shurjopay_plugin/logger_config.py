@@ -10,19 +10,18 @@ class ShurjopayLoggerConfig(object):
     Adds file handler to logger
     '''
 
-    def __init__(self, log_file_path):
+    def __init__(self, file_path):
         ''' Initialize the logger config with a destination file path '''
         # TODO what happens if anyone inits this class without log file
-        self.log_file_path = log_file_path
+        self.log_file_path = file_path
 
     def get_logger(self):
         ''' Retuns a logger instance '''
         logger = logging.getLogger(__name__)
-        # TODO why info log this message always
-        logger.DEBUG("ShurjopayConfig initialized")
         # create log file if it does not exist
         os.makedirs(os.path.dirname(self.log_file_path), exist_ok=True)
-        logging.basicConfig(  # set basic config
+        # set basic configuration for logger
+        logging.basicConfig(  
             level=logging.INFO,
             format=" '%(asctime)s : %(levelname)s :gs %(name)s : %(funcName)s  %(message)s'",
             handlers=[

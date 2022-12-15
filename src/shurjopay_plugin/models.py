@@ -1,15 +1,15 @@
 class ShurjoPayConfigModel(object):
-    '''ShurjoPayConfigModel class is used to store shurjoPay configuration details'''
-    def __init__(self, SP_USERNAME, SP_PASSWORD, SHURJOPAY_API, SP_CALLBACK,SP_LOG_DIR):
+    '''This class is used to store Shurjopay configuration details'''
+    def __init__(self, SP_USERNAME, SP_PASSWORD, SP_ENDPOINT, SP_CALLBACK,SP_LOGDIR):
         self.SP_USERNAME = SP_USERNAME # shurjopay username
         self.SP_PASSWORD = SP_PASSWORD # shurjopay password
-        self.SHURJOPAY_API = SHURJOPAY_API # shurjopay api url
+        self.SP_ENDPOINT = SP_ENDPOINT # shurjopay api url
         self.SP_CALLBACK = SP_CALLBACK # marchent callback url
-        self.SP_LOG_DIR = SP_LOG_DIR # shurjopay log directory  
+        self.SP_LOGDIR = SP_LOGDIR # shurjopay log directory  
 
 
 class ShurjoPayTokenModel(object):
-    '''ShurjoPayTokenModel class is used to store shurjoPay authentication token details'''
+    '''This class is used to store Shurjopay authentication token details'''
     def __init__(self, token, store_id, execute_url, token_type, sp_code, message, token_create_time, expires_in) -> None:
         self.token = token # shurjopay authentication token
         self.store_id = store_id # shurjopay store id
@@ -20,15 +20,8 @@ class ShurjoPayTokenModel(object):
         self.token_create_time = token_create_time # shurjopay token create time
         self.expires_in = expires_in # shurjopay token expires in
 
-
-class ShurjoPayMessageModel(object):
-    '''ShurjoPayMessageModel class is used to store shurjoPay message details'''
-    def __init__(self, sp_code, message) -> None:
-        self.sp_code = sp_code # shurjopay status code
-        self.message = message # shurjopay message
-
 class PaymentRequestModel(object):
-    '''PaymentRequestModel class is used to store payment request details'''
+    '''This class is used to store payment request details'''
     def __init__(self, prefix, amount, order_id,  currency, customer_name, customer_address, customer_phone, customer_city, customer_post_code) -> None:
         self.prefix = prefix # payment prefix
         self.amount = amount # request amount
@@ -42,7 +35,7 @@ class PaymentRequestModel(object):
 
 
 class PaymentDetailsModel(object):
-    '''PaymentDetailsModel class is used to store payment details'''
+    '''This class is used to store payment details'''
     def __init__(self, checkout_url, amount, currency, sp_order_id, customer_order_id, customer_name, customer_address, customer_city, customer_phone, customer_email, client_ip, intent, transactionStatus) -> None:
         self.checkout_url = checkout_url # shurjopay checkout url to redirect to payment page
         self.amount = amount # payment amount
@@ -60,7 +53,7 @@ class PaymentDetailsModel(object):
 
 
 class VerifiedPaymentDetailsModel(object):
-    '''VerifiedPaymentDetailsModel class is used to store verified payment details'''
+    '''This class is used to store verified payment details'''
     def __init__(self, id, order_id, currency, amount, payable_amount, received_amount, discsount_amount, disc_percent, usd_amt, usd_rate, card_holder_name, card_number, phone_no, bank_trx_id, invoice_no, bank_status, customer_order_id, sp_message, sp_code, name, email, address, city, value1, value2, value3, value4, transaction_status, method, date_time):
         self.id = id # shurjopay payment id
         self.order_id = order_id # shurjopay order id
@@ -85,6 +78,11 @@ class VerifiedPaymentDetailsModel(object):
         self.email = email # customer email
         self.address = address  # customer address
         self.city = city # customer city
+        '''
+        Sometime customer have to send additional data like studentId 
+	    or any other information which have not any field given by shurjoPay.
+	    value1, value2, value3, value4 is used for customer's additional info if needed
+        '''
         self.value1 = value1
         self.value2 = value2
         self.value3 = value3
