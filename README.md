@@ -64,7 +64,7 @@ SP_LOG_DIR=/log/shurjopay/shurjopay.log
 
 ## Documentation
 
-### [Developer-Guideline](doc/sp_plugin_developer_guideline.md)
+### [shurjoPay plugin developer guide / howto](DEVELOPER_GUIDE.md)
 
 ### [Github](https://github.com/shurjopay-plugins)
 
