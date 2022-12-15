@@ -2,10 +2,8 @@ import json
 import unittest
 import os
 import environ
-from shurjopay_plugin import ShurjopayPlugin
-from models import *
-from netwotk_interface import getIP
-from utils import *
+from shurjopay_plugin import *
+
 
 #load payemnt request data from json file
 with open("sample_message/PaymentRequest.json", "r") as read_file:
