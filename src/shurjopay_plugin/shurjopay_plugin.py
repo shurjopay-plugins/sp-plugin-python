@@ -6,11 +6,11 @@
 import requests
 import datetime
 import json
-from models import *
-from logger_config import ShurjopayLoggerConfig
-from utils import Endpoints, ShurjopayStatus
-from shurjopay_exceptions import ShurjoPayException
-from netwotk_interface import getIP
+from .models import *
+from .logger_config import ShurjopayLoggerConfig
+from .utils import Endpoints, ShurjopayStatus
+from .shurjopay_exceptions import ShurjoPayException
+from .netwotk_interface import getIP
 
 
 class ShurjopayPlugin(object):
@@ -79,13 +79,13 @@ class ShurjopayPlugin(object):
                        self.AUTH_TOKEN.token_create_time, "%Y-%m-%d %I:%M:%S%p") + datetime.timedelta(milliseconds=self.AUTH_TOKEN.expires_in)) > datetime.datetime.now() else False
 
     def make_payment(self, paymentReq):
-        '''
+        r'''
         This method is used to make payment request.
-        @param PaymentRequest object.
-        @return PaymentDetails object containing redirect URL to reach payment page, order id to verify order in shurjoPay.
-        @return None if payment request fails.
-        @raise ShurjoPayException if payment fails due to token expired or invalid credentials.
-        @raise ShurjoPayException  if payment fails due to invalid payment request.   
+        :param PaymentRequest object.
+        :return PaymentDetails object containing redirect URL to reach payment page, order id to verify order in shurjoPay.
+        :return None if payment request fails.
+        :raise ShurjoPayException if payment fails due to token expired or invalid credentials.
+        :raise ShurjoPayException  if payment fails due to invalid payment request.   
         '''
         try:
             if self.AUTH_TOKEN == None or self.is_token_valid() == False: # Check if token is valid or expired
@@ -118,11 +118,11 @@ class ShurjopayPlugin(object):
     def verify_payment(self, order_id):
         '''
         verify order using order id which is got by payment response object
-        @param order_id
-        @return order object if order is verified 
-        @return None if order is not verified
-        @raise ShurjoPayException if order verification fails due to token expired or invalid credentials.
-        @raise ShurjoPayException  if order verification fails due to invalid order id.
+        :param order_id
+        :return verified payment object if payment is verified 
+        :return None if payment is not verified
+        :raise ShurjoPayException if payment verification fails due to token expired or invalid credentials.
+        :raise ShurjoPayException  if payment is not successfull
         '''
         try:
             if self.AUTH_TOKEN == None or self.is_token_valid() == False: # Check if token is valid or expired
@@ -142,6 +142,9 @@ class ShurjopayPlugin(object):
                 if(response['sp_code'] == ShurjopayStatus.INVALID_ORDER_ID.value):
                     self.logger.info(f'sp_code:{response["sp_code"]}, sp_message:{response["message"]}') 
                     return ShurjoPayMessageModel(**response) # Map message details to message model
+                elif(response['sp_code'] != ShurjopayStatus.TRANSACTION_SUCCESS.value):
+                    self.logger.info(f'sp_code:{response["sp_code"]}, sp_message:{response["sp_message"]}')
+                    raise ShurjoPayException(self.PAYMENT_VERIFICATION_FAILED, response['sp_message']) # Raise exception if payment verification fails
                 self.logger.info(f'sp_code:{response["sp_code"]}, sp_message:{response["sp_message"]}')
                 return VerifiedPaymentDetailsModel(**response) # Map payment details to verified payment details model
             except ShurjoPayException as ex:
@@ -154,11 +157,11 @@ class ShurjopayPlugin(object):
     def check_payment_status(self, order_id):
         '''
          Check shurjoPay payment status using order-id which is retreved from callback
-         @param order_id
-         @return order object
-         @retun None if order is not found
-         @raise Exception if order verification fails due to token expired or invalid credentials.
-         @raise ShurjoPayException if order verification fails due to invalid order id.
+         :param order_id 
+         :return verified order object
+         :retun None if order is not found
+         :raise Exception if order verification fails due to token expired or invalid credentials.
+         :raise ShurjoPayException if order verification fails due to invalid order id.
         '''
         try:
             if self.AUTH_TOKEN == None or self.is_token_valid() == False: # Check if token is valid or expired
@@ -190,8 +193,8 @@ class ShurjopayPlugin(object):
     def _map_payment_request(self, paymentReq):
         '''
         This method is used to map payment request object to payment request model
-        @param payment_request
-        @returns payment request model
+        :param payment_request
+        :returns payment request model
         '''
         return {
             'token': self.AUTH_TOKEN.token,
