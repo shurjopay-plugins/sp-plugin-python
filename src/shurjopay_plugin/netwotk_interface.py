@@ -4,8 +4,8 @@ import re as r
 
 def getIP():
     '''
-    @return the IP address of the marchents server
-    @raise ShurjoPayException if IP address is not found 
+    :return the IP address of the marchents server
+    :raise ShurjoPayException if IP address is not found 
     '''
     try:
         data = str(urlopen('http://checkip.dyndns.com/').read()) # Open the oracle checkip url and read the data
