@@ -1,20 +1,23 @@
 import json
 import unittest
 import os
+import sys
 import environ
-from shurjopay_plugin import *
 
+
+root_dir = os.getcwd()
+sys.path.insert(0, os.path.join(root_dir, "src/shurjopay_plugin"))
+
+from shurjopay_plugin.shurjopayPlugin import ShurjopayPlugin
+from shurjopay_plugin.shurjopayPlugin import *
 
 #load payemnt request data from json file
-with open("sample_message/PaymentRequest.json", "r") as read_file:
+with open(os.path.join(root_dir,"tests/sample_message/PaymentRequest.json"), "r") as read_file:
     payment_request_json = json.load(read_file)
 
-#definig base directory
-basedir = os.path.dirname(os.path.dirname( os.path.dirname((os.path.abspath(__file__)))))
-print(basedir)
 #loading environment variables
 env = environ.Env()
-env.read_env(os.path.join(basedir, '.env'))
+env.read_env(os.path.join(root_dir, '.env'))
 class TestShurjoPayPlugin(unittest.TestCase):
     '''
     Unit tests for ShurjopayPlugin : Make Payment, Verify Payment, Check Payment Status
@@ -25,9 +28,9 @@ class TestShurjoPayPlugin(unittest.TestCase):
         sp_config = ShurjoPayConfigModel(
             SP_USERNAME=env('SP_USERNAME'),
             SP_PASSWORD=env('SP_PASSWORD'),
-            SHURJOPAY_API=env('SHURJOPAY_API'),
+            SP_ENDPOINT=env('SP_ENDPOINT'),
             SP_CALLBACK=env('SP_CALLBACK'),
-            SP_LOG_DIR=env('SP_LOG_DIR')
+            SP_LOGDIR=env('SP_LOGDIR')
         )
         self._plugin = ShurjopayPlugin(sp_config)
         self._payment_request = PaymentRequestModel(**payment_request_json)
@@ -59,9 +62,10 @@ class TestShurjoPayPlugin(unittest.TestCase):
     def test_verify_payment(self):
         #unit testing for verify payment
         verified_payment_details = self._plugin.verify_payment(
-            'spay612b73a935ab1')
+            '0000')
 
-        if(verified_payment_details.sp_code == ShurjopayStatus.INVALID_ORDER_ID.value):
+        if(verified_payment_details == None):
+            print(ShurjopayStatus.INVALID_ORDER_ID.message)
             return
 
         self.assertEqual(1, verified_payment_details.id, "ID is not equal")
@@ -106,11 +110,12 @@ class TestShurjoPayPlugin(unittest.TestCase):
         self.assertEqual('2021-08-29 17:47:06',
                          verified_payment_details.date_time, "Date Time is not equal")
 
-    def test_check_payment_status(self):
+    def test_get_payment_details(self):
         #unit testing for check payment status
-        verified_payment_status = self._plugin.check_payment_status(
-            'spay612b73a935ab1')
-        if(verified_payment_status.sp_code == ShurjopayStatus.INVALID_ORDER_ID.value):
+        verified_payment_status = self._plugin.get_payment_details(
+            '00sdfsfsdfsdf')
+        if verified_payment_status == None:
+            print(ShurjopayStatus.INVALID_ORDER_ID.message)
             return
         self.assertEqual(1, verified_payment_status.id, "ID is not equal")
         self.assertEqual(
