@@ -40,10 +40,36 @@ SP_USERNAME=sp_sandbox
 SP_PASSWORD=pyyk97hu&6u6
 SP_ENDPOINT=https://sandbox.shurjopayment.com/api/
 SP_CALLBACK=https://www.sandbox.shurjopayment.com/response
-SP_LOGDIR=log/shurjopay/shurjopay.log
 ```
+After that, you can start using our package the way you want based on your application. Here we are providing a basic example code snip for you.
+
 Example
 
+```
+env = environ.Env()
+environ.Env.read_env(BASE_DIR / '.env')
+BASE_DIR = Path(__file__).resolve().parent.parent
+sp_config = ShurjoPayConfigModel(
+        SP_USERNAME = env('SP_USERNAME'),
+        SP_PASSWORD = env('SP_PASSWORD'),
+        SHURJOPAY_API = env('SP_ENDPOINT'),
+        SP_CALLBACK = env('SP_CALLBACK'),
+        SP_LOG_DIR = BASE_DIR / 'logs' / 'shurjopay.log'
+        )
+shurjopay = ShurjopayPlugin(sp_config)
+payment_request = PaymentRequestModel(
+            prefix='sp-plugin-python',
+            amount=1000,
+            order_id='001',
+            currency='BDT',
+            customer_name='Mahabubul Hasan',
+            customer_address='Mohakhali',
+            customer_phone='01311310975',
+            customer_city='Dhaka',
+            customer_post_code='1229',
+        )
+        payment_details = shurjopay.make_payment(payment_request)
+```
 
 
 That's all! Now you are ready to use our shurjoPay python package to make your payment system easy and smooth.
@@ -54,7 +80,7 @@ See our [Django Example](https://github.com/shurjopay-plugins/sp-plugin-usage-ex
 
 ### [Plugin Development Guideline](DEVELOPER_GUIDE.md)
 
-### [shurjopay Plugins ](https://github.com/shurjopay-plugins)
+### [shurjopay Plugins](https://github.com/shurjopay-plugins)
 
 ## Contact  [shurjopay](https://shurjopay.com.bd/#contacts)
 
