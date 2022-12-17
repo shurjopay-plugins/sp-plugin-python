@@ -8,8 +8,8 @@ import environ
 root_dir = os.getcwd()
 sys.path.insert(0, os.path.join(root_dir, "src/shurjopay_plugin"))
 
-from shurjopay_plugin.shurjopayPlugin import ShurjopayPlugin
-from shurjopay_plugin.shurjopayPlugin import *
+from shurjopay_plugin.shurjopay_plugin import ShurjopayPlugin
+from shurjopay_plugin.shurjopay_plugin import *
 
 #load payemnt request data from json file
 with open(os.path.join(root_dir,"tests/sample_message/PaymentRequest.json"), "r") as read_file:
