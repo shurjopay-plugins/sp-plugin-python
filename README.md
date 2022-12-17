@@ -33,14 +33,15 @@ ShurjoPay Online payment gateway has several API's which need to be integrated b
 
 ## shurjoPay python plugin for django, flask, botle, cherrypy
 
-**Example Applications**
-
-### [Django](https://github.com/shurjopay-plugins/sp-plugin-usage-examples/tree/dev/django-app-python-plugin)
-
 ## Installation
 
+> 📝 **NOTE** Use `pip` to install the package in your python project environment for shuroPay python plugin
 >
 
+```
+pip install shurjopay-plugin
+
+```
 
 Or `clone` the repository
 
@@ -56,16 +57,16 @@ python setup.py install
 
 ```
 
-## Initialize the shurjoPay python plugin with shurjoPay credentials & api-url, marchent's callback url and a log directory
+## Initialize the plugin with shurjoPay credentials & api-url, marchent's callback url and a log directory
 
 Here is a sample .env configuration
 
 ```
 SP_USERNAME=sp_sandbox
 SP_PASSWORD=pyyk97hu&6u6
-SHURJOPAY_API=https://sandbox.shurjopayment.com/api/
+SP_ENDPOINT=https://sandbox.shurjopayment.com/api/
 SP_CALLBACK=https://www.sandbox.shurjopayment.com/response
-SP_LOG_DIR=log/shurjopay/shurjopay.log
+SP_LOGDIR=log/shurjopay/shurjopay.log
 ```
 
 ## Documentation

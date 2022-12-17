@@ -1,13 +1,4 @@
 ![alt text](https://shurjopay.com.bd/dev/images/shurjoPay.png)
-
-# Shurjopay Python Plugin Developer Guideline
-
-This document has been prepared by Shurjomukhi Limited to enable the online merchants to integrate Shurjopay payment gateway. The information contained in this document is proprietary and confidential to Shurjomukhi Limited, for the product Shurjopay.
-
-## Audience
-
-This document is intended for a developer of Shurjopay Python Plugin
-
 ### Installation
 
 > 📝 **NOTE** Fork the repository if you want
@@ -33,10 +24,16 @@ source env/bin/activate
 
 ```
 
-- At last install project requirements
+- Install project requirements
 
 ```
 pip install -r requirements.txt
 
 ```
 
+## Package Build & Upload
+
+```
+python -m build
+twine upload dist/*
+```
