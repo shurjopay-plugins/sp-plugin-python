@@ -1,5 +1,3 @@
-from .shurjopay_plugin import ShurjopayPlugin
+from .shurjopay_plugin import *
 from .models import *
-from .netwotk_interface import getIP
 from .utils import *
-from .shurjopay_exceptions import *
