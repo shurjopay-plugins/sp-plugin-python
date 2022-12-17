@@ -80,7 +80,7 @@ That's all! Now you are ready to use our shurjoPay python package to make your p
 
 ### [shurjopay Plugins](https://github.com/shurjopay-plugins)
 
-##W Contact [US](https://shurjopay.com.bd/#contacts)
+## Contact [US](https://shurjopay.com.bd/#contacts)
 
 ## License
 
