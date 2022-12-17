@@ -3,31 +3,39 @@ import logging
 
 
 class ShurjopayLoggerConfig(object):
+    '''Shurjopay logger can be initialized by using one of the following methods: 
+        -default logger. 
+        -file logger.  
     '''
-    Logger configurations for Shurjopay plugin.
-    Creates a logger instance to log the activities performed by the plugin.
-    Defines file handeler and set formatter,
-    Adds file handler to logger
-    '''
-
-    def __init__(self, file_path):
-        ''' Initialize the logger config with a destination file path '''
-        # TODO what happens if anyone inits this class without log file
-        self.log_file_path = file_path
-
+    logger = logging.getLogger(__name__)
+    loglevel = logging.INFO
+   
     def get_logger(self):
-        ''' Retuns a logger instance '''
-        logger = logging.getLogger(__name__)
+        """Returns: default logger instance."""
+        return self.logger
+    
+    def get_file_logger(self,file_path):
+        """ Creates a file logger (shurjopay.log) at the file path provided.
+       Log level is set to INFO by default. 
+       The log file is created if it does not exist 
+       and the logs are appended using basic logger config. 
+
+        Args:
+            file_path (str): path of the log file.
+
+        Returns:
+            logger: file logger instance.
+        """
         # create log file if it does not exist
-        os.makedirs(os.path.dirname(self.log_file_path), exist_ok=True)
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
         # set basic configuration for logger
         logging.basicConfig(  
-            level=logging.INFO,
+            level=self.loglevel,
             format=" '%(asctime)s : %(levelname)s :gs %(name)s : %(funcName)s  %(message)s'",
             handlers=[
-                logging.FileHandler(self.log_file_path,
+                logging.FileHandler(file_path,
                                     mode="a", encoding=None, delay=True),
                 logging.StreamHandler()
             ]
         )
-        return logger
+        return self.logger
