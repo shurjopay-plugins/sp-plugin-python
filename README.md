@@ -21,43 +21,17 @@ Use `pip` to install this plugin inside your project environment
 ```
 pip install shurjopay-plugin
 ```
-
-## Integration
-
-ShurjoPay Online payment gateway has several API's which need to be integrated by merchants for accessing different services. The available services are:
-
-- Authenticate users
-- Making payment
-- Verifying payment order
-- Checking verified payment order status
-
-## shurjoPay python plugin for django, flask, botle, cherrypy
-
-## Installation
-
-> 📝 **NOTE** Use `pip` to install the package in your python project environment for shuroPay python plugin
->
-
-```
-pip install shurjopay-plugin
-
-```
-
-Or `clone` the repository
+Or `clone` the repository and install the package
 
 ```
 git clone https://github.com/shurjopay-plugins/sp-plugin-python
 
-```
-
-Then install the plugin inside your project
-
-```
 python setup.py install
 
 ```
 
-## Initialize the plugin with shurjoPay credentials & api-url, marchent's callback url and a log directory
+
+## Initialize the plugin with shurjoPay configuration
 
 Here is a sample .env configuration
 
@@ -68,16 +42,21 @@ SP_ENDPOINT=https://sandbox.shurjopayment.com/api/
 SP_CALLBACK=https://www.sandbox.shurjopayment.com/response
 SP_LOGDIR=log/shurjopay/shurjopay.log
 ```
+Example
 
-## Documentation
 
-### [shurjoPay plugin developer guide / howto](DEVELOPER_GUIDE.md)
 
-### [Github](https://github.com/shurjopay-plugins)
+That's all! Now you are ready to use our shurjoPay python package to make your payment system easy and smooth.
 
-## Contacts
+See our [Django Example](https://github.com/shurjopay-plugins/sp-plugin-usage-examples/tree/dev/django-app-python-plugin) application
 
-[Shurjopay](https://shurjopay.com.bd/#contacts)
+
+
+### [Plugin Development Guideline](DEVELOPER_GUIDE.md)
+
+### [shurjopay Plugins ](https://github.com/shurjopay-plugins)
+
+## Contact  [shurjopay](https://shurjopay.com.bd/#contacts)
 
 ## License
 
