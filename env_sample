@@ -2,4 +2,3 @@ SP_USERNAME=sp_sandbox
 SP_PASSWORD=pyyk97hu&6u6
 SP_LOGDIR=https://sandbox.shurjopayment.com/api/
 SP_CALLBACK=https://www.sandbox.shurjopayment.com/response
-SP_LOGDIR=log/shurjopay/shurjopay.log
