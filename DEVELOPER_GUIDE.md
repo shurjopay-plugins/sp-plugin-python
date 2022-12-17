@@ -30,10 +30,3 @@ source env/bin/activate
 pip install -r requirements.txt
 
 ```
-
-## Package Build & Upload
-
-```
-python -m build
-twine upload dist/*
-```
