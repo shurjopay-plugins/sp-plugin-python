@@ -25,9 +25,7 @@ Or `clone` the repository and install the package
 
 ```
 git clone https://github.com/shurjopay-plugins/sp-plugin-python
-
 python setup.py install
-
 ```
 
 
@@ -74,7 +72,7 @@ payment_request = PaymentRequestModel(
 
 That's all! Now you are ready to use our shurjoPay python package to make your payment system easy and smooth.
 
-See our [Django Example](https://github.com/shurjopay-plugins/sp-plugin-usage-examples/tree/dev/django-app-python-plugin) application
+## Checkout our [Django Example](https://github.com/shurjopay-plugins/sp-plugin-usage-examples/tree/dev/django-app-python-plugin) application
 
 
 
@@ -82,7 +80,7 @@ See our [Django Example](https://github.com/shurjopay-plugins/sp-plugin-usage-ex
 
 ### [shurjopay Plugins](https://github.com/shurjopay-plugins)
 
-## Contact  [shurjopay](https://shurjopay.com.bd/#contacts)
+##W Contact [US](https://shurjopay.com.bd/#contacts)
 
 ## License
 
