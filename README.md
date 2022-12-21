@@ -1,6 +1,10 @@
 ![alt text](https://shurjopay.com.bd/dev/images/shurjoPay.png)
-
 # shurjoPay python package (plugin)
+[![Test Status](https://github.com/rust-random/rand/workflows/Tests/badge.svg?event=push)]()
+[![Python](https://img.shields.io/pypi/pyversions/shurjopay-V2)](https://badge.fury.io/py/tensorflow)
+[![PyPI version](https://badge.fury.io/py/shurjopay-V2.svg)](https://badge.fury.io/py/shurjopay-V2)
+
+
 Official shurjoPay python package (plugin) for merchants or service providers to connect with shurjoPay Payment Gateway v2.1 developed and maintained by shurjoMukhi Limited.
 
 This plugin package can be used with any python application or framework (e.g. django, flask, FastAPI etc.).
@@ -80,7 +84,7 @@ That's all! Now you are ready to use our shurjoPay python package to make your p
 
 ### [shurjopay Plugins](https://github.com/shurjopay-plugins)
 
-## Contact [US](https://shurjopay.com.bd/#contacts)
+## [Contact US](https://shurjopay.com.bd/#contacts)
 
 ## License
 
