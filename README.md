@@ -48,7 +48,7 @@ After that, you can start using our package the way you want based on your appli
 
 Example
 
-```
+```python
 import environ
 import shurjopay_plygin
 env = environ.Env()
@@ -73,7 +73,7 @@ payment_request = PaymentRequestModel(
             customer_city='Dhaka',
             customer_post_code='1229',
         )
-        payment_details = shurjopay.make_payment(payment_request)
+payment_details = shurjopay.make_payment(payment_request)
 ```
 
 
