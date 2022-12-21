@@ -56,7 +56,7 @@ sp_config = ShurjoPayConfigModel(
         SP_PASSWORD = env('SP_PASSWORD'),
         SP_ENDPOINT = env('SP_ENDPOINT'),
         SP_CALLBACK = env('SP_CALLBACK'),
-        SP_LOGDIR=env('SP_LOGDIR')
+        SP_LOGDIR= env('SP_LOGDIR')
         )
 shurjopay_plugin = ShurjopayPlugin(sp_config)
 payment_request = PaymentRequestModel(
