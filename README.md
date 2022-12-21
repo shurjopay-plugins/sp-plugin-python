@@ -42,12 +42,15 @@ SP_USERNAME=sp_sandbox
 SP_PASSWORD=pyyk97hu&6u6
 SP_ENDPOINT=https://sandbox.shurjopayment.com/api/
 SP_CALLBACK=https://www.sandbox.shurjopayment.com/response
+SP_LOGDIR=var/log/shurjopay/shurjopay.log
 ```
 After that, you can start using our package the way you want based on your application. Here we are providing a basic example code snip for you.
 
 Example
 
 ```
+import environ
+import shurjopay_plygin
 env = environ.Env()
 environ.Env.read_env(BASE_DIR / '.env')
 BASE_DIR = Path(__file__).resolve().parent.parent
