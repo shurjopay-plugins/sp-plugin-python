@@ -34,9 +34,7 @@ python setup.py install
 
 
 ## Initialize the plugin with shurjoPay configuration
-
-Here is a sample .env configuration
-
+Create a .env file inside your projects root directory. Here is a sample .env configuration
 ```
 SP_USERNAME=sp_sandbox
 SP_PASSWORD=pyyk97hu&6u6
@@ -50,18 +48,17 @@ Example
 
 ```python
 import environ
-import shurjopay_plygin
+from shurjopay_plugin import *
 env = environ.Env()
-environ.Env.read_env(BASE_DIR / '.env')
-BASE_DIR = Path(__file__).resolve().parent.parent
+environ.Env.read_env('.env')
 sp_config = ShurjoPayConfigModel(
         SP_USERNAME = env('SP_USERNAME'),
         SP_PASSWORD = env('SP_PASSWORD'),
-        SHURJOPAY_API = env('SP_ENDPOINT'),
+        SP_ENDPOINT = env('SP_ENDPOINT'),
         SP_CALLBACK = env('SP_CALLBACK'),
-        SP_LOG_DIR = BASE_DIR / 'logs' / 'shurjopay.log'
+        SP_LOGDIR=env('SP_LOGDIR')
         )
-shurjopay = ShurjopayPlugin(sp_config)
+shurjopay_plugin = ShurjopayPlugin(sp_config)
 payment_request = PaymentRequestModel(
             prefix='sp-plugin-python',
             amount=1000,
@@ -73,7 +70,7 @@ payment_request = PaymentRequestModel(
             customer_city='Dhaka',
             customer_post_code='1229',
         )
-payment_details = shurjopay.make_payment(payment_request)
+payment_details = shurjopay_plugin.make_payment(payment_request)
 ```
 
 
