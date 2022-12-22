@@ -7,7 +7,7 @@ setuptools.setup(
     version="0.0.1",
     author="Mahabubul Hasan",
     author_email="mahabubul470@pranisheba.com.bd",
-    description="Shurjopay version 3 payment gateway integration package for python users.",
+    description="Shurjopay version 2.1 payment gateway integration package for python users.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/shurjopay-plugins/sp-plugin-python.git",
