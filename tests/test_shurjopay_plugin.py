@@ -8,8 +8,8 @@ import environ
 root_dir = os.getcwd()
 sys.path.insert(0, os.path.join(root_dir, "src/shurjopay_plugin"))
 
-from shurjopay_plugin.shurjopay_plugin import ShurjopayPlugin
-from shurjopay_plugin.shurjopay_plugin import *
+from shurjopay_plugin import ShurjopayPlugin
+from shurjopay_plugin import *
 
 #load payemnt request data from json file
 with open(os.path.join(root_dir,"tests/sample_message/PaymentRequest.json"), "r") as read_file:
@@ -110,9 +110,9 @@ class TestShurjoPayPlugin(unittest.TestCase):
         self.assertEqual('2021-08-29 17:47:06',
                          verified_payment_details.date_time, "Date Time is not equal")
 
-    def test_get_payment_details(self):
+    def test_check_payment(self):
         #unit testing for check payment status
-        verified_payment_status = self._plugin.get_payment_details(
+        verified_payment_status = self._plugin.check_payment(
             '00sdfsfsdfsdf')
         if verified_payment_status == None:
             print(ShurjopayStatus.INVALID_ORDER_ID.message)
