@@ -9,10 +9,17 @@ Official shurjoPay python package (plugin) for merchants or service providers to
 
 This plugin package can be used with any python application or framework (e.g. django, flask, FastAPI etc.).
 
-This plugin package makes it easy for you to integrate with shurjoPay v2.1 with just two method calls:
+This plugin package makes it easy for you to integrate with shurjoPay v2.1 with just three method calls:
 
 - make_payment()
 - verify_payment()
+- check_payment()
+
+Also reduces many of the things that you had to do manually
+
+- Handles http request and errors
+- JSON serialization and deserialization
+- Authentication during checkout and verification of payments
 
 ## Audience
 
@@ -25,12 +32,6 @@ Use `pip` to install this plugin inside your project environment
 ```
 pip install shurjopay-plugin
 ```
-Or `clone` the repository and install the package
-
-```
-git clone https://github.com/shurjopay-plugins/sp-plugin-python
-python setup.py install
-```
 
 
 ## Initialize the plugin with shurjoPay configuration
@@ -39,13 +40,12 @@ Create a .env file inside your projects root directory. Here is a sample .env co
 SP_USERNAME=sp_sandbox
 SP_PASSWORD=pyyk97hu&6u6
 SP_ENDPOINT=https://sandbox.shurjopayment.com/api/
-SP_CALLBACK=https://www.sandbox.shurjopayment.com/response
-SP_LOGDIR=var/log/shurjopay/shurjopay.log
+SP_CALLBACK=https://www.sandbox.shurjopayment.com/response/
+SP_LOGDIR=var/log/shurjopay/shurjopay.log/
 ```
-After that, you can start using our package the way you want based on your application. Here we are providing a basic example code snip for you.
+After that, you can start using our package the way you want based on your application. Here we are providing a basic example code snippet for you.
 
-Example
-
+- Initialize the plugin
 ```python
 import environ
 from shurjopay_plugin import *
@@ -59,6 +59,9 @@ sp_config = ShurjoPayConfigModel(
         SP_LOGDIR= env('SP_LOGDIR')
         )
 shurjopay_plugin = ShurjopayPlugin(sp_config)
+```
+- Make Payment Request
+```python
 payment_request = PaymentRequestModel(
             prefix='sp-plugin-python',
             amount=1000,
@@ -72,20 +75,30 @@ payment_request = PaymentRequestModel(
         )
 payment_details = shurjopay_plugin.make_payment(payment_request)
 ```
+- Verify payment after each transaction
+
+```python
+shurjopay_plugin.verify_payment(order_id)
+```
+- Check the payment status
+```
+shurjopay_plugin.check_payment(order_id)
+```
+That's all! Now you are ready to use the python plugin to seamlessly integrate with shurjoPay to make your payment system easy and smooth.
+
+### Also, checkout our [Django Example](https://github.com/shurjopay-plugins/sp-plugin-usage-examples/tree/dev/django-app-python-plugin) application
 
 
-That's all! Now you are ready to use our shurjoPay python package to make your payment system easy and smooth.
-
-## Checkout our [Django Example](https://github.com/shurjopay-plugins/sp-plugin-usage-examples/tree/dev/django-app-python-plugin) application
-
-
+## References
 
 ### [Plugin Development Guideline](DEVELOPER_GUIDE.md)
 
 ### [shurjopay Plugins](https://github.com/shurjopay-plugins)
 
-## [Contact US](https://shurjopay.com.bd/#contacts)
 
 ## License
+This code is under the [MIT open source License](LICENSE)
+#### Please [contact](https://shurjopay.com.bd/#contacts) with shurjoPay team for more detail!
+<hr>
+Copyright ©️2022 Shurjomukhi Limited.
 
-[MIT](LICENSE)
