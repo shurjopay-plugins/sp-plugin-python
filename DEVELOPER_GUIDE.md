@@ -21,12 +21,16 @@ python -m venv env
 
 ```
 source env/bin/activate
-
 ```
 
 - Install project requirements
 
 ```
 pip install -r requirements.txt
+```
 
+Install the package
+
+```
+python setup.py install
 ```
