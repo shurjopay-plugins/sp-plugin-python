@@ -206,7 +206,7 @@ class ShurjopayPlugin(object):
             self.logger.error(f'{self.AUTHENTICATION_FAILED}: {self.AUTHENTICATION_TOKEN_EXPIRED}')
             raise ShurjopayAuthException(self.AUTHENTICATION_FAILED, self.AUTHENTICATION_TOKEN_EXPIRED)
 
-    def get_payment_details(self, order_id):
+    def check_payment(self, order_id):
         ''' Get specific payment details using order id.
              Args
             -----
