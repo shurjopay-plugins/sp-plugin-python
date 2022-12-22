@@ -48,7 +48,7 @@ SP_LOGDIR=var/log/shurjopay/shurjopay.log/
 ```
 After that, you can start using our package the way you want based on your application. Here we are providing a basic example code snippet for you.
 
-- Initialize the plugin with shurjoPay configuration
+- Initialize the plugin with a configuration object
 ```python
 import environ
 from shurjopay_plugin import *
@@ -63,7 +63,7 @@ sp_config = ShurjoPayConfigModel(
         )
 shurjopay_plugin = ShurjopayPlugin(sp_config)
 ```
-- Initiate the Payment with a payment request object
+- Initiate payment request with a payment-request object
 ```python
 payment_request = PaymentRequestModel(
             prefix='sp-plugin-python',
@@ -78,12 +78,12 @@ payment_request = PaymentRequestModel(
         )
 payment_details = shurjopay_plugin.make_payment(payment_request)
 ```
-- Verify payment after each transaction
+- Verify payment after each transaction with order id retrieved from callback/ipn
 
 ```python
 shurjopay_plugin.verify_payment(order_id)
 ```
-- Check the payment status
+- Check the payment status after each successful payment
 ```python
 shurjopay_plugin.check_payment(order_id)
 ```
