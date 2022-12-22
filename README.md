@@ -1,8 +1,11 @@
 ![alt text](https://shurjopay.com.bd/dev/images/shurjoPay.png)
 # shurjoPay python package (plugin)
-[![Test Status](https://github.com/rust-random/rand/workflows/Tests/badge.svg?event=push)]()
-[![Python](https://img.shields.io/pypi/pyversions/shurjopay-V2)](https://badge.fury.io/py/tensorflow)
+[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
+[![Python](https://img.shields.io/pypi/pyversions/shurjopay-V2)](https://badge.fury.io/py/shurjopay-V2)
 [![PyPI version](https://badge.fury.io/py/shurjopay-V2.svg)](https://badge.fury.io/py/shurjopay-V2)
+[![Test Status](https://github.com/rust-random/rand/workflows/Tests/badge.svg?event=push)]()
+[![PyPi license](https://badgen.net/pypi/license/pip/)](https://pypi.com/project/pip/)
+
 
 
 Official shurjoPay python package (plugin) for merchants or service providers to connect with shurjoPay Payment Gateway v2.1 developed and maintained by shurjoMukhi Limited.
@@ -45,7 +48,7 @@ SP_LOGDIR=var/log/shurjopay/shurjopay.log/
 ```
 After that, you can start using our package the way you want based on your application. Here we are providing a basic example code snippet for you.
 
-- Initialize the plugin
+- Initialize the plugin with shurjoPay configuration
 ```python
 import environ
 from shurjopay_plugin import *
@@ -60,7 +63,7 @@ sp_config = ShurjoPayConfigModel(
         )
 shurjopay_plugin = ShurjopayPlugin(sp_config)
 ```
-- Make Payment Request
+- Initiate the Payment with a payment request object
 ```python
 payment_request = PaymentRequestModel(
             prefix='sp-plugin-python',
@@ -101,4 +104,3 @@ This code is under the [MIT open source License](LICENSE)
 #### Please [contact](https://shurjopay.com.bd/#contacts) with shurjoPay team for more detail!
 <hr>
 Copyright ©️2022 Shurjomukhi Limited.
-
