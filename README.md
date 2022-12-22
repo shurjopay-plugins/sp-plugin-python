@@ -84,7 +84,7 @@ payment_details = shurjopay_plugin.make_payment(payment_request)
 shurjopay_plugin.verify_payment(order_id)
 ```
 - Check the payment status
-```
+```python
 shurjopay_plugin.check_payment(order_id)
 ```
 That's all! Now you are ready to use the python plugin to seamlessly integrate with shurjoPay to make your payment system easy and smooth.
