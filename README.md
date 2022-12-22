@@ -1,5 +1,4 @@
-![alt text](https://shurjopay.com.bd/dev/images/shurjoPay.png)
-# shurjoPay python package (plugin)
+# ![alt text](https://shurjopay.com.bd/dev/images/shurjoPay.png) shurjoPay python package (plugin)
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [![Python](https://img.shields.io/pypi/pyversions/shurjopay-V2)](https://badge.fury.io/py/shurjopay-V2)
 [![PyPI version](https://badge.fury.io/py/shurjopay-V2.svg)](https://badge.fury.io/py/shurjopay-V2)
