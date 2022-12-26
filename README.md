@@ -32,15 +32,15 @@ This document is intended for the developers and technical personnel of merchant
 pip install shurjopay-plugin
 ```
 
-### Create a .env file inside your projects root directory. Here is a sample .env configuration
+### Create a .env file inside your project's root directory. Here is a sample .env configuration
 ```
 SP_USERNAME=sp_sandbox
 SP_PASSWORD=pyyk97hu&6u6
 SP_ENDPOINT=https://sandbox.shurjopayment.com/api/
 SP_CALLBACK=https://www.sandbox.shurjopayment.com/response/
-SP_LOGDIR=var/log/shurjopay/shurjopay.log/
+SP_LOGDIR=log/shurjopay/shurjopay.log
 ```
-After that, you can start using our package the way you want based on your application. Here we are providing a basic example code snippet for you.
+### After that, you can start using our package the way you want based on your application. Here we are providing a basic example code snippet for you.
 
 ```python
 import environ
