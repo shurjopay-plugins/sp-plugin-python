@@ -6,9 +6,9 @@
 import requests
 import datetime
 import json
-from models import *
-from utils import *
-from logger_config import ShurjopayLoggerConfig
+from .models import *
+from .utils import *
+from .logger_config import ShurjopayLoggerConfig
 
 class ShurjopayPlugin(object):
     '''
