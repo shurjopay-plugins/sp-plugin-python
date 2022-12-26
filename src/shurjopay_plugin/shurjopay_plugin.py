@@ -6,9 +6,9 @@
 import requests
 import datetime
 import json
-from .models import *
-from .utils import *
-from .logger_config import ShurjopayLoggerConfig
+from models import *
+from utils import *
+from logger_config import ShurjopayLoggerConfig
 
 class ShurjopayPlugin(object):
     '''
@@ -50,8 +50,9 @@ class ShurjopayPlugin(object):
         self.SP_ENDPOINT = sp_config.SP_ENDPOINT
         self.SP_CALLBACK = sp_config.SP_CALLBACK 
         
-        if sp_config.SP_LOGDIR == None:
+        if sp_config.SP_LOGDIR == None or sp_config.SP_LOGDIR == '':
             self.logger = ShurjopayLoggerConfig().get_logger()
+            return
         self.logger = ShurjopayLoggerConfig().get_file_logger(sp_config.SP_LOGDIR)
         
     def authenticate(self):
