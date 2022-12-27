@@ -1,8 +1,7 @@
 # ![alt text](https://shurjopay.com.bd/dev/images/shurjoPay.png) Python package (plugin)
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
-[![Python](https://img.shields.io/pypi/pyversions/shurjopay-V2)](https://badge.fury.io/py/shurjopay-V2)
-[![PyPI version](https://badge.fury.io/py/shurjopay-V2.svg)](https://badge.fury.io/py/shurjopay-V2)
-[![Test Status](https://github.com/rust-random/rand/workflows/Tests/badge.svg?event=push)]()
+[![Python](https://img.shields.io/pypi/pyversions/shurjopay-plugin)](https://badge.fury.io/py/shurjopay-plugin)
+[![PyPI version](https://badge.fury.io/py/shurjopay-plugin.svg)](https://badge.fury.io/py/shurjopay-plugin)
 [![PyPi license](https://badgen.net/pypi/license/pip/)](https://pypi.com/project/pip/)
 
 Official shurjoPay python package (plugin) for merchants or service providers to connect with shurjoPay Payment Gateway v2.1 developed and maintained by shurjoMukhi Limited.
