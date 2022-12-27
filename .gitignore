@@ -5,6 +5,7 @@ __pycache__/
 
 #vscode
 .vscode/
+.idea/
 
 
 # C extensions
