@@ -79,10 +79,8 @@ shurjopay_plugin.verify_payment(order_id)
 
 #### That's all! Now you are ready to use the python plugin to seamlessly integrate with shurjoPay to make your payment system easy and smooth.
 
-
-
 ## References
-1. [Django example application(https://github.com/shurjopay-plugins/sp-plugin-usage-examples/tree/dev/django-app-python-plugin) showing usage of the python plugin
+1. [Django example application](https://github.com/shurjopay-plugins/sp-plugin-usage-examples/tree/dev/django-app-python-plugin) showing usage of the python plugin.
 2. [Sample applications and projects](https://github.com/shurjopay-plugins/sp-plugin-usage-examples) in many different languages and frameworks showing shurjopay integration.
 3. [shurjoPay Postman site](https://documenter.getpostman.com/view/6335853/U16dS8ig) illustrating the request and response flow using the sandbox system.
 4. [shurjopay Plugins](https://github.com/shurjopay-plugins) home page on github
