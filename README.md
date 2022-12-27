@@ -27,13 +27,13 @@ This document is intended for the developers and technical personnel of merchant
 
 ## How to use this shurjoPay Plugin
 
-#### Use `pip` to install this plugin inside your project environment
+#### Use `pip` to install this plugin inside your project environment.
 
 ```
 pip install shurjopay-plugin
 ```
 
-#### Create a .env file inside your project's root directory. Here is a sample .env configuration
+#### Create a .env file inside your project's root directory. Here is a sample .env configuration.
 ```
 SP_USERNAME=sp_sandbox
 SP_PASSWORD=pyyk97hu&6u6
@@ -41,7 +41,7 @@ SP_ENDPOINT=https://sandbox.shurjopayment.com/api/
 SP_CALLBACK=https://www.sandbox.shurjopayment.com/response/
 SP_LOGDIR=log/shurjopay/shurjopay.log
 ```
-#### After that, you can initiate payment request to shurjoPay using our package the way you want based on your application. Here we are providing a basic example code snippet for you
+#### After that, you can initiate payment request to shurjoPay using our package the way you want based on your application. Here we are providing a basic example code snippet for you.
 
 
 ```python
@@ -71,7 +71,7 @@ payment_request = PaymentRequestModel(
 payment_details = shurjopay_plugin.make_payment(payment_request)
 ```
 
-#### Payment verification can be done after each transaction with shurjopay order id
+#### Payment verification can be done after each transaction with shurjopay order id.
 
 ```python
 shurjopay_plugin.verify_payment(order_id)
@@ -82,7 +82,7 @@ shurjopay_plugin.verify_payment(order_id)
 
 
 ## References
-1. [Django Example](https://github.com/shurjopay-plugins/sp-plugin-usage-examples/tree/dev/django-app-python-plugin) showing usage of the python plugin
+1. [Django example application(https://github.com/shurjopay-plugins/sp-plugin-usage-examples/tree/dev/django-app-python-plugin) showing usage of the python plugin
 2. [Sample applications and projects](https://github.com/shurjopay-plugins/sp-plugin-usage-examples) in many different languages and frameworks showing shurjopay integration.
 3. [shurjoPay Postman site](https://documenter.getpostman.com/view/6335853/U16dS8ig) illustrating the request and response flow using the sandbox system.
 4. [shurjopay Plugins](https://github.com/shurjopay-plugins) home page on github
