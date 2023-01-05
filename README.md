@@ -38,7 +38,8 @@ SP_USERNAME=sp_sandbox
 SP_PASSWORD=pyyk97hu&6u6
 SP_ENDPOINT=https://sandbox.shurjopayment.com/api/
 SP_CALLBACK=https://www.sandbox.shurjopayment.com/response/
-SP_LOGDIR=log/shurjopay/shurjopay.log
+SP_PREFIX=sp-plugin-python
+SP_LOGDIR=/var/log/shurjopay/shurjopay.log (optional)
 ```
 #### After that, you can initiate payment request to shurjoPay using our package the way you want based on your application. Here we are providing a basic example code snippet for you.
 
@@ -53,11 +54,11 @@ sp_config = ShurjoPayConfigModel(
         SP_PASSWORD = env('SP_PASSWORD'),
         SP_ENDPOINT = env('SP_ENDPOINT'),
         SP_CALLBACK = env('SP_CALLBACK'),
+        SP_PREFIX = env('SP_PREFIX'),
         SP_LOGDIR= env('SP_LOGDIR')
         )
 shurjopay_plugin = ShurjopayPlugin(sp_config)
 payment_request = PaymentRequestModel(
-            prefix='sp-plugin-python',
             amount=1000,
             order_id='001',
             currency='BDT',

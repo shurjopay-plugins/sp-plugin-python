@@ -3,3 +3,4 @@ SP_PASSWORD=pyyk97hu&6u6
 SP_ENDPOINT=https://sandbox.shurjopayment.com/api/
 SP_CALLBACK=https://www.sandbox.shurjopayment.com/response/
 SP_LOGDIR=log/shurjopay.log
+SP_PREFIX=APSJK
