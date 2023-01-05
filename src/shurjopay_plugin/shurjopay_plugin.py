@@ -49,6 +49,7 @@ class ShurjopayPlugin(object):
         self.SP_PASSWORD = sp_config.SP_PASSWORD
         self.SP_ENDPOINT = sp_config.SP_ENDPOINT
         self.SP_CALLBACK = sp_config.SP_CALLBACK 
+        self.SP_PREFIX = sp_config.SP_PREFIX
         
         if sp_config.SP_LOGDIR == None or sp_config.SP_LOGDIR == '':
             self.logger = ShurjopayLoggerConfig().get_logger()
@@ -266,7 +267,7 @@ class ShurjopayPlugin(object):
             'return_url': self.SP_CALLBACK,
             'cancel_url': self.SP_CALLBACK,
             'store_id': self.AUTH_TOKEN.store_id,
-            'prefix': payment_req.prefix,
+            'prefix': self.SP_PREFIX,
             'amount': payment_req.amount,
             'order_id':  payment_req.order_id,
             'currency': payment_req.currency,
