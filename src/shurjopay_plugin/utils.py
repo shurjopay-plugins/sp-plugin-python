@@ -30,7 +30,7 @@ class ShurjopayStatus():
     '''This class contains the shurjoPayAPI Responses'''
     AUTH_SUCCESS = CustomResponse(200, "Successfully authenticated with Marchent")
     INVALID_ORDER_ID = CustomResponse('1011', "Invalid Payment ID")
-    TRANSACTION_SUCCESS = CustomResponse(1000, "Transaction successful")
+    TRANSACTION_SUCCESS = CustomResponse('1000', "Transaction successful")
 
 
 class ShurjopayException(Exception):
