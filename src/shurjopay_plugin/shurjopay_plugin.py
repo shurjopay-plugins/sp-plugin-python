@@ -104,7 +104,7 @@ class ShurjopayPlugin(object):
         None: if token is invalid
         '''
         return True if (datetime.datetime.strptime(
-                       self.AUTH_TOKEN.token_create_time, "%Y-%m-%d %I:%M:%S%p") + datetime.timedelta(milliseconds=self.AUTH_TOKEN.expires_in)) > datetime.datetime.now() else False
+                       self.AUTH_TOKEN.token_create_time, "%Y-%m-%d %I:%M:%S%p") + datetime.timedelta(seconds=self.AUTH_TOKEN.expires_in)) > datetime.datetime.now() else False
 
     def make_payment(self, payment_req):
         '''Make payment request to shurjoPay Gateway using a payment request object containing payment details.
