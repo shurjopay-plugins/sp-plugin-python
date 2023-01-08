@@ -1,10 +1,11 @@
 class ShurjoPayConfigModel(object):
     '''This class is used to store Shurjopay configuration details'''
-    def __init__(self, SP_USERNAME, SP_PASSWORD, SP_ENDPOINT, SP_CALLBACK,SP_PREFIX,SP_LOGDIR):
+    def __init__(self, SP_USERNAME, SP_PASSWORD, SP_ENDPOINT, SP_RETURN,SP_CANCEL,SP_PREFIX,SP_LOGDIR):
         self.SP_USERNAME:str = SP_USERNAME # shurjopay username
         self.SP_PASSWORD:str = SP_PASSWORD # shurjopay password
         self.SP_ENDPOINT:str = SP_ENDPOINT # shurjopay api endpoint
-        self.SP_CALLBACK:str = SP_CALLBACK # marchent callback url
+        self.SP_RETURN:str = SP_RETURN # marchent retrun url
+        self.SP_CANCEL:str = SP_CANCEL # marchent cancel url
         self.SP_PREFIX:str = SP_PREFIX # shurjopay store unique id 
         self.SP_LOGDIR:str = SP_LOGDIR # shurjopay log directory  
 
@@ -24,7 +25,7 @@ class PaymentRequestModel(object):
     '''This class is used to store payment request details'''
     def __init__(self, amount, order_id,  currency, customer_name, customer_address, customer_phone, customer_city, customer_post_code) -> None:
         #self.prefix:str = prefix # payment prefix
-        self.amount:float = amount # request amount
+        self.amount:str = amount # request amount
         self.order_id:str = order_id # marchent order id
         self.currency:str = currency # payment currency
         self.customer_name:str = customer_name # customer name
@@ -38,7 +39,7 @@ class PaymentDetailsModel(object):
     '''This class is used to store payment details'''
     def __init__(self, checkout_url, amount, currency, sp_order_id, customer_order_id,sp_code, customer_name, customer_address, customer_city, customer_phone, customer_email, client_ip, intent, transactionStatus) -> None:
         self.checkout_url:str = checkout_url # shurjopay checkout url to redirect to payment page
-        self.amount:float = amount # payment amount
+        self.amount:str = amount # payment amount
         self.currency:str = currency # payment currency
         self.sp_code:str = sp_code # shurjopay status code
         self.sp_order_id:str = sp_order_id # shurjopay order id
@@ -59,10 +60,10 @@ class VerifiedPaymentDetailsModel(object):
         self.id:int = id # shurjopay payment id
         self.order_id:str = order_id # shurjopay order id
         self.currency:str = currency # payment currency
-        self.amount:float = amount # payment amount
-        self.payable_amount:float = payable_amount # payment payable amount
+        self.amount:str = amount # payment amount
+        self.payable_amount:str = payable_amount # payment payable amount
         self.recived_amount:str = recived_amount # payment received amount
-        self.discount_amount:float = discount_amount # payment discount amount
+        self.discount_amount:str = discount_amount # payment discount amount
         self.disc_percent:int = disc_percent # payment discount percent
         self.usd_amt:int = usd_amt # payment usd amount
         self.usd_rate:int = usd_rate # payment usd rate
