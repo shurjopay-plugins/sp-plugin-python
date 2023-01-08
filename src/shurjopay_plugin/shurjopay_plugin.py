@@ -13,18 +13,12 @@ from .logger_config import ShurjopayLoggerConfig
 class ShurjopayPlugin(object):
     '''
         shurjoPay Online payment gateway has several API's which need to be integrated by merchants for accessing different services. The available services are:
-        - Authenticate users
+        - Authenticating
         - Making payment
-        - Verifying payment order
-        - Checking verified payment order status
+        - Verifying payment 
+        - Checking payment status
         For more details view the shurjoPay version-2.1 integration documentation : https://docs.google.com/document/d/19J4HE0j873nBJqcN-uRBYYAa_qBA3p1XSY-jy2fwvEE/edit .    
     '''
-    # shurjoPayAPI Endpoints
-    TOKEN_END_POINT = Endpoints.TOKEN.value
-    VERIFICATION_END_POINT = Endpoints.VERIFIED_ORDER.value
-    PAYMENT_STATUS_END_POINT = Endpoints.PAYMENT_STATUS.value
-    MAKE_PAYMENT_END_POINT = Endpoints.MAKE_PAYMENT.value
-   
     # shurjopay Token attributes  
     # token(str), 
     # token_type,
@@ -47,8 +41,9 @@ class ShurjopayPlugin(object):
         # Initialize the configuration keys for plugin configuration
         self.SP_USERNAME = sp_config.SP_USERNAME
         self.SP_PASSWORD = sp_config.SP_PASSWORD
-        self.SP_ENDPOINT = sp_config.SP_ENDPOINT
-        self.SP_CALLBACK = sp_config.SP_CALLBACK 
+        self.SP_ENDPOINT = requests.compat.urljoin(sp_config.SP_ENDPOINT, Endpoints.API.value)
+        self.SP_RETURN = sp_config.SP_RETURN 
+        self.SP_CANCEL = sp_config.SP_CANCEL
         self.SP_PREFIX = sp_config.SP_PREFIX
         
         if sp_config.SP_LOGDIR == None or sp_config.SP_LOGDIR == '':
@@ -73,7 +68,9 @@ class ShurjopayPlugin(object):
         ShurjopayAuthException: If authentication fails due to invalid credentials or any other reason. 
         '''
         # Create token endpoint url
-        url = self.SP_ENDPOINT + self.TOKEN_END_POINT
+        url = requests.compat.urljoin(self.SP_ENDPOINT, Endpoints.TOKEN.value)
+        self.logger.info(self.SP_ENDPOINT)
+        self.logger.info(url)
         payloads = {
             "username": self.SP_USERNAME,
             "password": self.SP_PASSWORD,
@@ -132,7 +129,7 @@ class ShurjopayPlugin(object):
             self.logger.error(f'{self.AUTHENTICATION_FAILED}: {ex}') 
             raise 
          # Create make payment endpoint url
-        url = self.SP_ENDPOINT + self.MAKE_PAYMENT_END_POINT
+        url = requests.compat.urljoin(self.SP_ENDPOINT, Endpoints.SECRET_PAY.value)
         headers = {
             'content-type': 'application/json',
             'Authorization': f'{self.AUTH_TOKEN.token_type} {self.AUTH_TOKEN.token}' 
@@ -182,7 +179,7 @@ class ShurjopayPlugin(object):
             self.logger.error(self.AUTHENTICATION_FAILED, ex)
             raise 
         # Create verify payment endpoint url
-        url = self.SP_ENDPOINT + self.VERIFICATION_END_POINT 
+        url = requests.compat.urljoin(self.SP_ENDPOINT, Endpoints.VERIFIFICATION.value)
         headers = {'content-type': 'application/json',
                    'Authorization': f'{self.AUTH_TOKEN.token_type} {self.AUTH_TOKEN.token}'}
         payloads = {'order_id': order_id}
@@ -230,7 +227,7 @@ class ShurjopayPlugin(object):
         except ShurjopayAuthException as ex:
             self.logger.error(self.AUTHENTICATION_FAILED, ex)
             raise 
-        url = self.SP_ENDPOINT + self.PAYMENT_STATUS_END_POINT
+        url = requests.compat.urljoin(self.SP_ENDPOINT, Endpoints.PAYMENT_STATUS.value)
         headers = {'content-type': 'application/json',
                    'Authorization': f'{self.AUTH_TOKEN.token_type} {self.AUTH_TOKEN.token}'}
         payloads = {'order_id': order_id}
@@ -264,8 +261,8 @@ class ShurjopayPlugin(object):
         '''
         return {
             'token': self.AUTH_TOKEN.token,
-            'return_url': self.SP_CALLBACK,
-            'cancel_url': self.SP_CALLBACK,
+            'return_url': self.SP_RETURN,
+            'cancel_url': self.SP_CANCEL,
             'store_id': self.AUTH_TOKEN.store_id,
             'prefix': self.SP_PREFIX,
             'amount': payment_req.amount,
@@ -276,5 +273,5 @@ class ShurjopayPlugin(object):
             'customer_phone': payment_req.customer_phone,
             'customer_city':  payment_req.customer_city,
             'customer_post_code':  payment_req.customer_post_code,
-            'client_ip': get_host_ip(),
+            'client_ip': get_client_ip(),
         }
