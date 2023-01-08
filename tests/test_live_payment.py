@@ -23,12 +23,16 @@ sp_config = ShurjoPayConfigModel(
     SP_USERNAME=env('SP_USERNAME'),
     SP_PASSWORD=env('SP_PASSWORD'),
     SP_ENDPOINT=env('SP_ENDPOINT'),
-    SP_CALLBACK=env('SP_CALLBACK'),
+    SP_RETURN=env('SP_RETURN'),
+    SP_CANCEL=env('SP_CANCEL'),
     SP_PREFIX=env('SP_PREFIX'),
     SP_LOGDIR=env('SP_LOGDIR')
 )
 plugin = ShurjopayPlugin(sp_config)
 payment_request = PaymentRequestModel(**payment_request_json)
 payment_details=plugin.make_payment(payment_request)
+print(payment_details.__dict__)
 verifyPayment = plugin.verify_payment("APSJK63b717accbc04")
+print(verifyPayment.__dict__)
 checkPayment = plugin.check_payment("APSJK63b717accbc04")
+print(checkPayment.__dict__)
