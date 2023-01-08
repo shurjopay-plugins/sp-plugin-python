@@ -4,7 +4,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="shurjopay-plugin",
-    version="0.1.3",
+    version="0.1.4",
     author="Mahabubul Hasan",
     author_email="plugindev@shurjomukhi.com.bd",
     description="Shurjopay version 2.1 payment gateway integration package for python users",
