@@ -6,11 +6,8 @@ import environ
 
 
 root_dir = os.getcwd()
-sys.path.insert(0, os.path.join(root_dir, "src/shurjopay_plugin"))
 
-from shurjopay_plugin import ShurjopayPlugin
 from shurjopay_plugin import *
-
 #load payemnt request data from json file
 with open(os.path.join(root_dir,"tests/sample_message/PaymentRequest.json"), "r") as read_file:
     payment_request_json = json.load(read_file)
@@ -26,12 +23,14 @@ class TestShurjoPayPlugin(unittest.TestCase):
     def setUp(self):
         #Shurjopay config for Instatiating ShurjopayPlugin
         sp_config = ShurjoPayConfigModel(
-            SP_USERNAME=env('SP_USERNAME'),
-            SP_PASSWORD=env('SP_PASSWORD'),
-            SP_ENDPOINT=env('SP_ENDPOINT'),
-            SP_CALLBACK=env('SP_CALLBACK'),
-            SP_LOGDIR=env('SP_LOGDIR')
-        )
+        SP_USERNAME=env('SP_USERNAME'),
+        SP_PASSWORD=env('SP_PASSWORD'),
+        SP_ENDPOINT=env('SP_ENDPOINT'),
+        SP_RETURN=env('SP_RETURN'),
+        SP_CANCEL=env('SP_CANCEL'),
+        SP_PREFIX=env('SP_PREFIX'),
+        SP_LOGDIR=env('SP_LOGDIR')
+    )
         self._plugin = ShurjopayPlugin(sp_config)
         self._payment_request = PaymentRequestModel(**payment_request_json)
 
@@ -70,7 +69,7 @@ class TestShurjoPayPlugin(unittest.TestCase):
 
         self.assertEqual(1, verified_payment_details.id, "ID is not equal")
         self.assertEqual(
-            "spay612b73a935ab1", verified_payment_details.order_id, "Order ID is not equal")
+            "APSJK63b717accbc04", verified_payment_details.order_id, "Order ID is not equal")
         self.assertEqual(
             "BDT", verified_payment_details.currency, "Currency is not equal")
         self.assertEqual(7, verified_payment_details.amount,
@@ -80,7 +79,7 @@ class TestShurjoPayPlugin(unittest.TestCase):
         self.assertEqual(
             "4444xxxxxxxx4444", verified_payment_details.card_number, "Card Number is not equal")
         self.assertEqual(
-            7, verified_payment_details.payable_amount, "Payable Amount is not equal")
+            1.0000, verified_payment_details.payable_amount, "Payable Amount is not equal")
         self.assertEqual(0, verified_payment_details.disc_percent,
                          "Discount Percent is not equal")
         self.assertEqual(0, verified_payment_details.usd_amt,
@@ -113,23 +112,23 @@ class TestShurjoPayPlugin(unittest.TestCase):
     def test_check_payment(self):
         #unit testing for check payment status
         verified_payment_status = self._plugin.check_payment(
-            '00sdfsfsdfsdf')
+            'APSJK63b717accbc04')
         if verified_payment_status == None:
             print(ShurjopayStatus.INVALID_ORDER_ID.message)
             return
-        self.assertEqual(1, verified_payment_status.id, "ID is not equal")
+        self.assertEqual(1759527, verified_payment_status.id, "ID is not equal")
         self.assertEqual(
-            "spay612b73a935ab1", verified_payment_status.order_id, "Order ID is not equal")
+            "APSJK63b717accbc04", verified_payment_status.order_id, "Order ID is not equal")
         self.assertEqual(
             "BDT", verified_payment_status.currency, "Currency is not equal")
-        self.assertEqual(7, verified_payment_status.amount,
+        self.assertEqual(1.0, verified_payment_status.amount,
                          "Amount is not equal")
         self.assertEqual(
             "visa", verified_payment_status.card_holder_name, "Card Holder Name is not equal")
         self.assertEqual(
             "4444xxxxxxxx4444", verified_payment_status.card_number, "Card Number is not equal")
         self.assertEqual(
-            7, verified_payment_status.payable_amount, "Payable Amount is not equal")
+            1.0, verified_payment_status.payable_amount, "Payable Amount is not equal")
         self.assertEqual(0, verified_payment_status.disc_percent,
                          "Discount Percent is not equal")
         self.assertEqual(0, verified_payment_status.usd_amt,

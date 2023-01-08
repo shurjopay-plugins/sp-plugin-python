@@ -1,8 +1,7 @@
 # ![alt text](https://shurjopay.com.bd/dev/images/shurjoPay.png) Python package (plugin)
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
-[![Python](https://img.shields.io/pypi/pyversions/shurjopay-V2)](https://badge.fury.io/py/shurjopay-V2)
-[![PyPI version](https://badge.fury.io/py/shurjopay-V2.svg)](https://badge.fury.io/py/shurjopay-V2)
-[![Test Status](https://github.com/rust-random/rand/workflows/Tests/badge.svg?event=push)]()
+[![Python](https://img.shields.io/pypi/pyversions/shurjopay-plugin)](https://badge.fury.io/py/shurjopay-plugin)
+[![PyPI version](https://badge.fury.io/py/shurjopay-plugin.svg)](https://badge.fury.io/py/shurjopay-plugin)
 [![PyPi license](https://badgen.net/pypi/license/pip/)](https://pypi.com/project/pip/)
 
 Official shurjoPay python package (plugin) for merchants or service providers to connect with shurjoPay Payment Gateway v2.1 developed and maintained by shurjoMukhi Limited.
@@ -37,9 +36,11 @@ pip install shurjopay-plugin
 ```
 SP_USERNAME=sp_sandbox
 SP_PASSWORD=pyyk97hu&6u6
-SP_ENDPOINT=https://sandbox.shurjopayment.com/api/
-SP_CALLBACK=https://www.sandbox.shurjopayment.com/response/
-SP_LOGDIR=log/shurjopay/shurjopay.log
+SP_ENDPOINT=https://sandbox.shurjopayment.com
+SP_RETURN=https://localhost:8000/return
+SP_CANCEL=https://localhost:8000/cancel
+SP_LOGDIR=/var/log/shurjopay.log
+SP_PREFIX=sp-plugin-python
 ```
 #### After that, you can initiate payment request to shurjoPay using our package the way you want based on your application. Here we are providing a basic example code snippet for you.
 
@@ -50,15 +51,16 @@ from shurjopay_plugin import *
 env = environ.Env()
 environ.Env.read_env('.env')
 sp_config = ShurjoPayConfigModel(
-        SP_USERNAME = env('SP_USERNAME'),
-        SP_PASSWORD = env('SP_PASSWORD'),
-        SP_ENDPOINT = env('SP_ENDPOINT'),
-        SP_CALLBACK = env('SP_CALLBACK'),
-        SP_LOGDIR= env('SP_LOGDIR')
-        )
+    SP_USERNAME=env('SP_USERNAME'),
+    SP_PASSWORD=env('SP_PASSWORD'),
+    SP_ENDPOINT=env('SP_ENDPOINT'),
+    SP_RETURN=env('SP_RETURN'),
+    SP_CANCEL=env('SP_CANCEL'),
+    SP_PREFIX=env('SP_PREFIX'),
+    SP_LOGDIR=env('SP_LOGDIR')
+)
 shurjopay_plugin = ShurjopayPlugin(sp_config)
 payment_request = PaymentRequestModel(
-            prefix='sp-plugin-python',
             amount=1000,
             order_id='001',
             currency='BDT',
