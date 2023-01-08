@@ -3,9 +3,10 @@ import socket
  
 class Endpoints(str, Enum):
     '''This class contains all the endpoints of shurjoPayAPI'''
+    API = 'api/'
     TOKEN = "get_token"
-    MAKE_PAYMENT = "secret-pay"
-    VERIFIED_ORDER = "verification"
+    SECRET_PAY = "secret-pay"
+    VERIFIFICATION = "verification"
     PAYMENT_STATUS = "payment-status"
 
 
@@ -55,7 +56,7 @@ class ShurjopayAuthException(ShurjopayException):
     def __init__(self, message, errors):
         super().__init__(message, errors)
 
-def get_host_ip():
+def get_client_ip():
     '''This method is used to get the IP address of the marchent server  
      
     Returns:
