@@ -36,10 +36,11 @@ pip install shurjopay-plugin
 ```
 SP_USERNAME=sp_sandbox
 SP_PASSWORD=pyyk97hu&6u6
-SP_ENDPOINT=https://sandbox.shurjopayment.com/api/
-SP_CALLBACK=https://www.sandbox.shurjopayment.com/response/
+SP_ENDPOINT=https://sandbox.shurjopayment.com
+SP_RETURN=https://localhost:8000/return
+SP_CANCEL=https://localhost:8000/cancel
+SP_LOGDIR=/var/log/shurjopay.log
 SP_PREFIX=sp-plugin-python
-SP_LOGDIR=/var/log/shurjopay/shurjopay.log (optional)
 ```
 #### After that, you can initiate payment request to shurjoPay using our package the way you want based on your application. Here we are providing a basic example code snippet for you.
 
@@ -50,13 +51,14 @@ from shurjopay_plugin import *
 env = environ.Env()
 environ.Env.read_env('.env')
 sp_config = ShurjoPayConfigModel(
-        SP_USERNAME = env('SP_USERNAME'),
-        SP_PASSWORD = env('SP_PASSWORD'),
-        SP_ENDPOINT = env('SP_ENDPOINT'),
-        SP_CALLBACK = env('SP_CALLBACK'),
-        SP_PREFIX = env('SP_PREFIX'),
-        SP_LOGDIR= env('SP_LOGDIR')
-        )
+    SP_USERNAME=env('SP_USERNAME'),
+    SP_PASSWORD=env('SP_PASSWORD'),
+    SP_ENDPOINT=env('SP_ENDPOINT'),
+    SP_RETURN=env('SP_RETURN'),
+    SP_CANCEL=env('SP_CANCEL'),
+    SP_PREFIX=env('SP_PREFIX'),
+    SP_LOGDIR=env('SP_LOGDIR')
+)
 shurjopay_plugin = ShurjopayPlugin(sp_config)
 payment_request = PaymentRequestModel(
             amount=1000,
