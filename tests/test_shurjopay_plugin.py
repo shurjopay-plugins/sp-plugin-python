@@ -46,10 +46,10 @@ class TestShurjoPayPlugin(unittest.TestCase):
             'BDT', self._payment_request_details.currency, 'Currency  is not equal')
 
         self.assertEqual(
-            'Mahabubul Hasan', self._payment_request_details.customer_name, 'Customer Name is not equal')
+            'MD. ABDUL KARIM', self._payment_request_details.customer_name, 'Customer Name is not equal')
 
         self.assertEqual(
-            '01311310975', self._payment_request_details.customer_phone, 'Customer Phone is not equal')
+            '01111111111', self._payment_request_details.customer_phone, 'Customer Phone is not equal')
 
         self.assertEqual(
             'mohakhali', self._payment_request_details.customer_address, "Customer Address is not equal")
@@ -61,7 +61,7 @@ class TestShurjoPayPlugin(unittest.TestCase):
     def test_verify_payment(self):
         #unit testing for verify payment
         verified_payment_details = self._plugin.verify_payment(
-            'APSJK63b717accbc04')
+            'sp6416d45992986')
 
         if(verified_payment_details == None):
             print(ShurjopayStatus.INVALID_ORDER_ID.message)
@@ -69,7 +69,7 @@ class TestShurjoPayPlugin(unittest.TestCase):
 
         self.assertEqual(1759527, verified_payment_details.id, "ID is not equal")
         self.assertEqual(
-            "APSJK63b717accbc04", verified_payment_details.order_id, "Order ID is not equal")
+            "sp6416d45992986", verified_payment_details.order_id, "Order ID is not equal")
        
 
 if __name__ == '__main__':
