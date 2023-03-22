@@ -39,7 +39,7 @@ SP_ENDPOINT=https://www.dev.engine.shurjopayment.com
 SP_RETURN=https://localhost:8000/return
 SP_CANCEL=https://localhost:8000/cancel
 SP_LOGDIR=/var/log/shurjopay/shurjopay.log
-SP_PREFIX=APSJK
+SP_PREFIX=python-plugin
 ```
 #### After that, you can initiate payment request to shurjoPay using our package the way you want based on your application. Here we are providing a basic example code snippet for you.
 
