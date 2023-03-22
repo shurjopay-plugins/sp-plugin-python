@@ -12,7 +12,6 @@ This plugin package makes it easy for you to integrate with shurjoPay v2.1 with 
 
 - make_payment()
 - verify_payment()
-- check_payment()
 
 Also reduces many of the things that you had to do manually
 
@@ -34,13 +33,13 @@ pip install shurjopay-plugin
 
 #### Create a .env file inside your project's root directory. Here is a sample .env configuration.
 ```
-SP_USERNAME=sp_sandbox
-SP_PASSWORD=pyyk97hu&6u6
-SP_ENDPOINT=https://sandbox.shurjopayment.com
+SP_USERNAME=demo
+SP_PASSWORD=demowb4&n$6un28$
+SP_ENDPOINT=https://www.dev.engine.shurjopayment.com
 SP_RETURN=https://localhost:8000/return
 SP_CANCEL=https://localhost:8000/cancel
-SP_LOGDIR=/var/log/shurjopay.log
-SP_PREFIX=sp-plugin-python
+SP_LOGDIR=/var/log/shurjopay/shurjopay.log
+SP_PREFIX=APSJK
 ```
 #### After that, you can initiate payment request to shurjoPay using our package the way you want based on your application. Here we are providing a basic example code snippet for you.
 
