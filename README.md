@@ -35,11 +35,11 @@ pip install shurjopay-plugin
 ```
 SP_USERNAME=demo
 SP_PASSWORD=demowb4&n$6un28$
-SP_ENDPOINT=https://www.dev.engine.shurjopayment.com
-SP_RETURN=https://localhost:8000/return
-SP_CANCEL=https://localhost:8000/cancel
+SP_ENDPOINT=https://dev.engine.shurjopayment.com
+SP_RETURN=https://dev.engine.shurjopayment.com/response
+SP_CANCEL=https://dev.engine.shurjopayment.com/response
 SP_LOGDIR=/var/log/shurjopay/shurjopay.log
-SP_PREFIX=python-plugin
+SP_PREFIX=SP_PLUGIN_PYTHON
 ```
 #### After that, you can initiate payment request to shurjoPay using our package the way you want based on your application. Here we are providing a basic example code snippet for you.
 
