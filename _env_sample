@@ -1,7 +1,7 @@
-SP_USERNAME=sp_sandbox
-SP_PASSWORD=pyyk97hu&6u6
-SP_ENDPOINT=https://sandbox.shurjopayment.com
-SP_RETURN=https://localhost:8000/return
-SP_CANCEL=https://localhost:8000/cancel
-SP_LOGDIR=/var/log/shurjopay.log
-SP_PREFIX=sp-plugin-python
+SP_USERNAME=demo
+SP_PASSWORD=demowb4&n$6un28$
+SP_ENDPOINT=https://dev.engine.shurjopayment.com
+SP_RETURN=https://dev.engine.shurjopayment.com/response
+SP_CANCEL=https://dev.engine.shurjopayment.com/response
+SP_LOGDIR=/var/log/shurjopay/shurjopay.log
+SP_PREFIX=SP_PLUGIN_PYTHON
