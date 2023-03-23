@@ -39,6 +39,8 @@ class TestShurjoPayPlugin(unittest.TestCase):
         self._payment_request_details = self._plugin.make_payment(
             self._payment_request)
 
+        print(json.dumps(self._payment_request_details.__dict__,indent=4))
+
         self.assertEqual(
             10, self._payment_request_details.amount, 'amount is not equal')
 
