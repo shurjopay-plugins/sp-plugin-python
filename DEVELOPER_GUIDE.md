@@ -13,14 +13,14 @@ git clone https://github.com/shurjopay-plugins/sp-plugin-python
 - Create a virtual env for the plugin development
 
 ```
-python -m venv env
+python -m venv venv
 
 ```
 
 - Activate the virtual environment
 
 ```
-source env/bin/activate
+source venv/bin/activate
 ```
 
 - Install project requirements
@@ -29,8 +29,13 @@ source env/bin/activate
 pip install -r requirements.txt
 ```
 
-Install the package
+- Deploy to pypi
 
 ```
 python setup.py install
+python -m build 
+python -m twine upload dist/*
+provide the credentials for pypi.org account
 ```
+
+
