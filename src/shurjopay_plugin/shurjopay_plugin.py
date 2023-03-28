@@ -28,8 +28,8 @@ class ShurjopayPlugin(object):
     AUTH_TOKEN = None
 
     # Status Message
-    AUTHENTICATION_SUCCESS = 'Marchent Authentication Successful!'
-    AUTHENTICATION_FAILED = 'Marchent Authentication Failed!'
+    AUTHENTICATION_SUCCESS = 'Merchant Authentication Successful!'
+    AUTHENTICATION_FAILED = 'Merchant Authentication Failed!'
     AUTHENTICATION_TOKEN_EXPIRED = 'Shurjopay Token Expired!'
     PAYMENT_REQUEST_SUCCESS = 'Shurjopay Payment Request Successful!'
     PAYMENT_REQUEST_FAILED = 'Shurjopay Payment Request Failed!'
@@ -52,7 +52,7 @@ class ShurjopayPlugin(object):
         self.logger = ShurjopayLoggerConfig().get_file_logger(sp_config.SP_LOGDIR)
         
     def authenticate(self):
-        ''' Authenticate with shurjoPay Payment Gateway using marchent credectials.
+        ''' Authenticate with shurjoPay Payment Gateway using merchant credectials.
         
         Returns
         -------

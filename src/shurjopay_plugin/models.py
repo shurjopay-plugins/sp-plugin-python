@@ -4,8 +4,8 @@ class ShurjoPayConfigModel(object):
         self.SP_USERNAME:str = SP_USERNAME # shurjopay username
         self.SP_PASSWORD:str = SP_PASSWORD # shurjopay password
         self.SP_ENDPOINT:str = SP_ENDPOINT # shurjopay api endpoint
-        self.SP_RETURN:str = SP_RETURN # marchent retrun url
-        self.SP_CANCEL:str = SP_CANCEL # marchent cancel url
+        self.SP_RETURN:str = SP_RETURN # merchant retrun url
+        self.SP_CANCEL:str = SP_CANCEL # merchant cancel url
         self.SP_PREFIX:str = SP_PREFIX # shurjopay store unique id 
         self.SP_LOGDIR:str = SP_LOGDIR # shurjopay log directory  
 
@@ -13,7 +13,7 @@ class ShurjoPayTokenModel(object):
     '''This class is used to store Shurjopay authentication token details'''
     def __init__(self, token, store_id, execute_url, token_type, sp_code, message, token_create_time, expires_in) -> None:
         self.token:str = token # authentication token
-        self.store_id:str = store_id # store id of marchent
+        self.store_id:str = store_id # store id of merchant
         self.execute_url:str = execute_url # payment execute url
         self.token_type:str = token_type # token type - Bearer
         self.sp_code:str = sp_code # shurjopay  status code
