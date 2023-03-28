@@ -29,7 +29,7 @@ class CustomResponse:
     
 class ShurjopayStatus():
     '''This class contains the shurjoPayAPI Responses'''
-    AUTH_SUCCESS = CustomResponse(200, "Successfully authenticated with Marchent")
+    AUTH_SUCCESS = CustomResponse(200, "Successfully authenticated with merchant")
     INVALID_ORDER_ID = CustomResponse('1011', "Invalid Payment ID")
     TRANSACTION_SUCCESS = CustomResponse('1000', "Transaction successful")
 
@@ -57,20 +57,24 @@ class ShurjopayAuthException(ShurjopayException):
         super().__init__(message, errors)
 
 def get_client_ip():
-    '''This method is used to get the IP address of the marchent server  
+    '''This method is used to get the IP address of the merchant server
+    A socket connection is made to the IANA server and the IP address of the merchant server is returned  
      
     Returns:
     -------
-        ip_address (str): IP address of the marchent server 
+        ip_address (str): IP address of the merchant server 
     
     Raises:
     ------
-         ShurjoPayException while getting marchent IP address
+         ShurjoPayException while getting merchant IP address
     '''
+    
+    IANA = '10.0.0.0'
+    PORT = 80
+    
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        # connect() for UDP doesn't send packets
-        s.connect(('10.0.0.0', 0)) 
+        s.connect((IANA, PORT)) 
         return s.getsockname()[0]
     except ShurjopayException as ex:
         raise ShurjopayException('Cannot connect to the internet"', ex) 
