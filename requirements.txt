@@ -1,4 +1,7 @@
 django-environ
 requests
+shurjopay-plugin
+twine
+
 
 
