@@ -76,12 +76,12 @@ def get_client_ip():
     '''
 
     IANA = '10.0.0.0'
-    PORT = 80
+    PORT = 0
 
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         # connect() for UDP doesn't send packets
-        s.connect(('10.0.0.0', 0))
+        s.connect((IANA, PORT))
         return s.getsockname()[0]
     except ShurjopayException as ex:
         raise ShurjopayException('Cannot connect to the internet"', ex)
