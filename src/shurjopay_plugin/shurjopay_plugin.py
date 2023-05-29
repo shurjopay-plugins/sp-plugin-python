@@ -6,8 +6,17 @@
 import requests
 import datetime
 import json
-from .models import PaymentDetailsModel, ShurjoPayTokenModel, VerifiedPaymentDetailsModel
-from .utils import Endpoints, ShurjopayStatus, ShurjopayException, ShurjopayAuthException
+from .models import (
+    PaymentDetailsModel,
+    ShurjoPayTokenModel,
+    VerifiedPaymentDetailsModel
+)
+from .utils import (
+    get_client_ip,
+    Endpoints,
+    ShurjopayStatus,
+    ShurjopayException,
+    ShurjopayAuthException)
 from .logger_config import ShurjopayLoggerConfig
 
 
@@ -29,8 +38,8 @@ class ShurjopayPlugin(object):
     AUTH_TOKEN = None
 
     # Status Message
-    AUTHENTICATION_SUCCESS = 'Marchent Authentication Successful!'
-    AUTHENTICATION_FAILED = 'Marchent Authentication Failed!'
+    AUTHENTICATION_SUCCESS = 'Merchant Authentication Successful!'
+    AUTHENTICATION_FAILED = 'Merchant Authentication Failed!'
     AUTHENTICATION_TOKEN_EXPIRED = 'Shurjopay Token Expired!'
     WRONG_CREDENTIALS = 'Please check your credentials'
     PAYMENT_REQUEST_SUCCESS = 'Shurjopay Payment Request Successful!'
@@ -48,13 +57,13 @@ class ShurjopayPlugin(object):
         self.SP_CANCEL = sp_config.SP_CANCEL
         self.SP_PREFIX = sp_config.SP_PREFIX
 
-        if sp_config.SP_LOGDIR == None or sp_config.SP_LOGDIR == '':
+        if sp_config.SP_LOGDIR is None or sp_config.SP_LOGDIR == '':
             self.logger = ShurjopayLoggerConfig().get_logger()
             return
         self.logger = ShurjopayLoggerConfig().get_file_logger(sp_config.SP_LOGDIR)
 
     def authenticate(self):
-        ''' Authenticate with shurjoPay Payment Gateway using marchent credectials.
+        ''' Authenticate with shurjoPay Payment Gateway using Merchant credectials.
 
         Returns
         -------
