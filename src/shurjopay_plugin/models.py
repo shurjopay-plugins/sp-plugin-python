@@ -1,13 +1,15 @@
 class ShurjoPayConfigModel(object):
     '''This class is used to store Shurjopay configuration details'''
-    def __init__(self, SP_USERNAME, SP_PASSWORD, SP_ENDPOINT, SP_RETURN,SP_CANCEL,SP_PREFIX,SP_LOGDIR):
-        self.SP_USERNAME:str = SP_USERNAME # shurjopay username
-        self.SP_PASSWORD:str = SP_PASSWORD # shurjopay password
-        self.SP_ENDPOINT:str = SP_ENDPOINT # shurjopay api endpoint
-        self.SP_RETURN:str = SP_RETURN # merchant retrun url
-        self.SP_CANCEL:str = SP_CANCEL # merchant cancel url
-        self.SP_PREFIX:str = SP_PREFIX # shurjopay store unique id 
-        self.SP_LOGDIR:str = SP_LOGDIR # shurjopay log directory  
+
+    def __init__(self, SP_USERNAME, SP_PASSWORD, SP_ENDPOINT, SP_RETURN, SP_CANCEL, SP_PREFIX, SP_LOGDIR):
+        self.SP_USERNAME: str = SP_USERNAME  # shurjopay username
+        self.SP_PASSWORD: str = SP_PASSWORD  # shurjopay password
+        self.SP_ENDPOINT: str = SP_ENDPOINT  # shurjopay api endpoint
+        self.SP_RETURN: str = SP_RETURN  # merchant retrun url
+        self.SP_CANCEL: str = SP_CANCEL  # merchant cancel url
+        self.SP_PREFIX: str = SP_PREFIX  # shurjopay store unique id
+        self.SP_LOGDIR: str = SP_LOGDIR  # shurjopay log directory
+
 
 class ShurjoPayTokenModel(object):
     '''This class is used to store Shurjopay authentication token details'''
@@ -75,7 +77,9 @@ class VerifiedPaymentDetailsModel(object):
         self.card_holder_name: str = kwargs.get('card_holder_name')
         self.card_number: str = kwargs.get('card_number')
         self.phone_no: str = kwargs.get('phone_no')
-        self.is_verify: str = kwargs.get('is_verify')
+        # payment is verified or not
+        self.is_verify: bool = kwargs.get('is_verify')
+        # merchant invoice no
         self.invoice_no: str = kwargs.get('invoice_no')
         self.bank_status: str = kwargs.get('bank_status')
         self.customer_order_id: str = kwargs.get('customer_order_id')
