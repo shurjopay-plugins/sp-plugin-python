@@ -6,8 +6,8 @@
 import requests
 import datetime
 import json
-from .models import *
-from .utils import *
+from .models import PaymentDetailsModel, ShurjoPayTokenModel, VerifiedPaymentDetailsModel
+from .utils import Endpoints, ShurjopayStatus, ShurjopayException, ShurjopayAuthException
 from .logger_config import ShurjopayLoggerConfig
 
 
@@ -127,7 +127,7 @@ class ShurjopayPlugin(object):
         '''
         try:
             # Check if token is valid or expired
-            if self.AUTH_TOKEN == None or self.is_token_valid() == False:
+            if self.AUTH_TOKEN is None or self.is_token_valid() is False:
                 # Authenticate with shurjoPay
                 self.AUTH_TOKEN = self.authenticate()
         except ShurjopayAuthException as ex:
@@ -183,7 +183,7 @@ class ShurjopayPlugin(object):
         '''
         try:
             # Check if token is valid or expired
-            if self.AUTH_TOKEN == None or self.is_token_valid() == False:
+            if self.AUTH_TOKEN is None or self.is_token_valid() is False:
                 # Authenticate with shurjoPay
                 self.AUTH_TOKEN = self.authenticate()
         except ShurjopayAuthException as ex:
