@@ -1,4 +1,3 @@
-
 class ShurjoPayConfigModel(object):
     '''This class is used to store Shurjopay configuration details'''
     def __init__(self, SP_USERNAME, SP_PASSWORD, SP_ENDPOINT, SP_RETURN,SP_CANCEL,SP_PREFIX,SP_LOGDIR):
@@ -29,7 +28,7 @@ class PaymentRequestModel(object):
     '''This class is used to store payment request details'''
 
     def __init__(self, **kwargs) -> None:
-        self.amount: str = kwargs.get('amount')
+        self.amount: float = kwargs.get('amount')
         self.order_id: str = kwargs.get('order_id')
         self.currency: str = kwargs.get('currency')
         self.customer_name: str = kwargs.get('customer_name')
@@ -45,7 +44,7 @@ class PaymentDetailsModel(object):
     def __init__(self, **kwargs) -> None:
         # shurjopay checkout url to redirect to payment page
         self.checkout_url: str = kwargs.get('checkout_url')
-        self.amount: str = kwargs.get('amount')
+        self.amount: float = kwargs.get('amount')
         self.currency: str = kwargs.get('currency')
         self.sp_order_id: str = kwargs.get('sp_order_id')
         self.customer_order_id: str = kwargs.get('customer_order_id')
@@ -66,10 +65,10 @@ class VerifiedPaymentDetailsModel(object):
         self.id: int = kwargs.get('id')  # shurjopay payment id
         self.order_id: str = kwargs.get('order_id')  # shurjopay order id
         self.currency: str = kwargs.get('currency')  # payment currency
-        self.amount: str = kwargs.get('currency')  # payment amount
-        self.payable_amount: str = kwargs.get('payable_amount')
-        self.recived_amount: str = kwargs.get('recived_amount')
-        self.discount_amount: str = kwargs.get('discount_amount')
+        self.amount: float = kwargs.get('currency')  # payment amount
+        self.payable_amount: float = kwargs.get('payable_amount')
+        self.recived_amount: float = kwargs.get('recived_amount')
+        self.discount_amount: float = kwargs.get('discount_amount')
         self.disc_percent: int = kwargs.get('disc_percent')
         self.usd_amt: float = kwargs.get('usd_amt')
         self.usd_rate: int = kwargs.get('usd_rate')
