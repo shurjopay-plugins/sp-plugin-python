@@ -1,15 +1,15 @@
 {
-    "checkout_url": "https://securepay.shurjopayment.com/spaycheckout/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2VuZ2luZS5zaHVyam9wYXltZW50LmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2Nzk0Njg3NTgsImV4cCI6MTY3OTQ2OTY1OCwibmJmIjoxNjc5NDY4NzU4LCJqdGkiOiI5T0g5eTlUY0lERk4ybjVDIiwic3ViIjoiNjcyIiwicHJ2IjoiODA1ZjM5ZWVmY2M2OGFmZDk4MjViNDEyMjdkYWQwYTA3NmM0OTc5MyJ9.pX93bbY0ZZzHgq_vADagktLd67dBKpP86xm82Wst8C8&order_id=sp641aa913e2c02",
-    "amount": 10,
+    "checkout_url": "https://dev.securepay.shurjopayment.com/spaycheckout/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2Rldi5lbmdpbmUuc2h1cmpvcGF5bWVudC5jb20vYXBpL2xvZ2luIiwiaWF0IjoxNjg1MzQyMzIyLCJleHAiOjE2ODUzNDU5MjIsIm5iZiI6MTY4NTM0MjMyMiwianRpIjoiS0ZETExteVh4UnZ2eVpJcSIsInN1YiI6IjEwNiIsInBydiI6IjgwNWYzOWVlZmNjNjhhZmQ5ODI1YjQxMjI3ZGFkMGEwNzZjNDk3OTMifQ.JAj6-0WSgNp7ECcgQPQ_SdzeyMe1q7iHphlshXHnh9Q&order_id=SPPLUGINPYTHON64744873605a9",
+    "amount": 5,
     "currency": "BDT",
-    "sp_order_id": "sp641aa913e2c02",
+    "sp_order_id": "SPPLUGINPYTHON64744873605a9",
     "customer_order_id": "sp315689",
     "customer_name": "MD. ABDUL KARIM",
-    "customer_address": "dhaka",
+    "customer_address": "mohakhali",
     "customer_city": "Dhaka",
     "customer_phone": "01111111111",
     "customer_email": null,
-    "client_ip": "102.101.1.1",
+    "client_ip": "192.168.0.46",
     "intent": "sale",
     "transactionStatus": "Initiated"
 }
