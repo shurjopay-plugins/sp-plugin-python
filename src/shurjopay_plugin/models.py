@@ -1,93 +1,105 @@
+
 class ShurjoPayConfigModel(object):
     '''This class is used to store Shurjopay configuration details'''
-    def __init__(self, SP_USERNAME, SP_PASSWORD, SP_ENDPOINT, SP_RETURN,SP_CANCEL,SP_PREFIX,SP_LOGDIR):
-        self.SP_USERNAME:str = SP_USERNAME # shurjopay username
-        self.SP_PASSWORD:str = SP_PASSWORD # shurjopay password
-        self.SP_ENDPOINT:str = SP_ENDPOINT # shurjopay api endpoint
-        self.SP_RETURN:str = SP_RETURN # marchent retrun url
-        self.SP_CANCEL:str = SP_CANCEL # marchent cancel url
-        self.SP_PREFIX:str = SP_PREFIX # shurjopay store unique id 
-        self.SP_LOGDIR:str = SP_LOGDIR # shurjopay log directory  
+
+    def __init__(self, **kwargs):
+
+        self.SP_USERNAME: str = kwargs.get('SP_USERNAME')
+        self.SP_PASSWORD: str = kwargs.get('SP_PASSWORD')
+        self.SP_ENDPOINT: str = kwargs.get('SP_ENDPOINT')
+        self.SP_RETURN: str = kwargs.get('SP_RETURN')
+        self.SP_CANCEL: str = kwargs.get('SP_CANCEL')
+        self.SP_PREFIX: str = kwargs.get('SP_PREFIX')
+        self.SP_LOGDIR: str = kwargs.get('SP_LOGDIR')
+
 
 class ShurjoPayTokenModel(object):
     '''This class is used to store Shurjopay authentication token details'''
-    def __init__(self, token, store_id, execute_url, token_type, sp_code, message, token_create_time, expires_in) -> None:
-        self.token:str = token # authentication token
-        self.store_id:str = store_id # store id of marchent
-        self.execute_url:str = execute_url # payment execute url
-        self.token_type:str = token_type # token type - Bearer
-        self.sp_code:str = sp_code # shurjopay  status code
-        self.message:str = message # shurjopay status message
-        self.token_create_time:str = token_create_time # shurjopay token create time
-        self.expires_in:int = expires_in # shurjopay token expire time (in seconds)
+
+    def __init__(self, **kwargs) -> None:
+
+        self.token: str = kwargs.get('token')
+        self.store_id: str = kwargs.get('store_id')
+        self.execute_url: str = kwargs.get('execute_url')
+        self.token_type: str = kwargs.get('token_type')
+        self.sp_code: str = kwargs.get('sp_code')
+        self.message: str = kwargs.get('message')
+        self.token_create_time: str = kwargs.get('token_create_time')
+        self.expires_in: int = kwargs.get('expires_in')
+
 
 class PaymentRequestModel(object):
     '''This class is used to store payment request details'''
-    def __init__(self, amount, order_id,  currency, customer_name, customer_address, customer_phone, customer_city, customer_post_code) -> None:
-        self.amount:str = amount
-        self.order_id:str = order_id 
-        self.currency:str = currency 
-        self.customer_name:str = customer_name 
-        self.customer_address:str = customer_address 
-        self.customer_phone:str = customer_phone
-        self.customer_city:str = customer_city 
-        self.customer_post_code:str = customer_post_code 
+
+    def __init__(self, **kwargs) -> None:
+        self.amount: str = kwargs.get('amount')
+        self.order_id: str = kwargs.get('order_id')
+        self.currency: str = kwargs.get('currency')
+        self.customer_name: str = kwargs.get('customer_name')
+        self.customer_address: str = kwargs.get('customer_address')
+        self.customer_phone: str = kwargs.get('customer_phone')
+        self.customer_city: str = kwargs.get('customer_city')
+        self.customer_post_code: str = kwargs.get('customer_post_code')
 
 
 class PaymentDetailsModel(object):
     '''This class is used to store payment details'''
-    def __init__(self, checkout_url, amount, currency, sp_order_id, customer_order_id, customer_name, customer_address, customer_city, customer_phone, customer_email, client_ip, intent, transactionStatus) -> None:
-        self.checkout_url:str = checkout_url # shurjopay checkout url to redirect to payment page
-        self.amount:str = amount
-        self.currency:str = currency 
-        self.sp_order_id:str = sp_order_id 
-        self.customer_order_id:str = customer_order_id 
-        self.customer_name:str = customer_name 
-        self.customer_address:str = customer_address 
-        self.customer_city:str = customer_city 
-        self.customer_phone:str = customer_phone
-        self.customer_email:str = customer_email 
-        self.client_ip:str = client_ip 
-        self.intent:str = intent 
-        self.transactionStatus:str = transactionStatus 
+
+    def __init__(self, **kwargs) -> None:
+        # shurjopay checkout url to redirect to payment page
+        self.checkout_url: str = kwargs.get('checkout_url')
+        self.amount: str = kwargs.get('amount')
+        self.currency: str = kwargs.get('currency')
+        self.sp_order_id: str = kwargs.get('sp_order_id')
+        self.customer_order_id: str = kwargs.get('customer_order_id')
+        self.customer_name: str = kwargs.get('customer_name')
+        self.customer_address: str = kwargs.get('customer_address')
+        self.customer_city: str = kwargs.get('customer_city')
+        self.customer_phone: str = kwargs.get('customer_phone')
+        self.customer_email: str = kwargs.get('customer_email')
+        self.client_ip: str = kwargs.get('client_ip')
+        self.intent: str = kwargs.get('intent')
+        self.transactionStatus: str = kwargs.get('transactionStatus')
 
 
 class VerifiedPaymentDetailsModel(object):
     '''This class is used to store verified payment details'''
-    def __init__(self, id, order_id, currency, amount, payable_amount, recived_amount, discount_amount, disc_percent, usd_amt, usd_rate, card_holder_name, card_number, phone_no, bank_trx_id, invoice_no, bank_status, customer_order_id, sp_massage,sp_message, sp_code, name, email, address, city, value1, value2, value3, value4, transaction_status, method, date_time):
-        self.id:int = id # shurjopay payment id
-        self.order_id:str = order_id # shurjopay order id
-        self.currency:str = currency # payment currency
-        self.amount:str = amount # payment amount
-        self.payable_amount:str = payable_amount 
-        self.recived_amount:str = recived_amount
-        self.discount_amount:str = discount_amount 
-        self.disc_percent:int = disc_percent 
-        self.usd_amt:int = usd_amt 
-        self.usd_rate:int = usd_rate 
-        self.card_holder_name:str = card_holder_name 
-        self.card_number:str = card_number 
-        self.phone_no :str= phone_no 
-        self.bank_trx_id:str = bank_trx_id
-        self.invoice_no:str = invoice_no 
-        self.bank_status:str = bank_status 
-        self.customer_order_id:str = customer_order_id 
-        self.sp_massage:str = sp_massage 
-        self.sp_message:str=sp_message
-        self.sp_code:str = sp_code 
-        self.name:str = name 
-        self.email:str = email
-        self.address:str = address  
-        self.city:str = city 
+
+    def __init__(self, **kwargs):
+        self.id: int = kwargs.get('id')  # shurjopay payment id
+        self.order_id: str = kwargs.get('order_id')  # shurjopay order id
+        self.currency: str = kwargs.get('currency')  # payment currency
+        self.amount: str = kwargs.get('currency')  # payment amount
+        self.payable_amount: str = kwargs.get('payable_amount')
+        self.recived_amount: str = kwargs.get('recived_amount')
+        self.discount_amount: str = kwargs.get('discount_amount')
+        self.disc_percent: int = kwargs.get('disc_percent')
+        self.usd_amt: float = kwargs.get('usd_amt')
+        self.usd_rate: int = kwargs.get('usd_rate')
+        self.card_holder_name: str = kwargs.get('card_holder_name')
+        self.card_number: str = kwargs.get('card_number')
+        self.phone_no: str = kwargs.get('phone_no')
+        self.is_verify: str = kwargs.get('is_verify')
+        self.invoice_no: str = kwargs.get('invoice_no')
+        self.bank_status: str = kwargs.get('bank_status')
+        self.customer_order_id: str = kwargs.get('customer_order_id')
+        self.sp_message: str = kwargs.get('sp_message')
+        self.sp_message: str = kwargs.get('currency')
+        self.sp_code: str = kwargs.get('sp_code')
+        self.name: str = kwargs.get('name')
+        self.email: str = kwargs.get('email')
+        self.address: str = kwargs.get('address')
+        self.city: str = kwargs.get('city')
         '''
         Sometime customer have to send additional data like studentId 
 	    or any other information which have not any field given by shurjoPay.
 	    value1, value2, value3, value4 is used for customer's additional info if needed
         '''
-        self.value1:str = value1
-        self.value2:str = value2
-        self.value3:str = value3
-        self.value4:str = value4
-        self.transaction_status:str = transaction_status 
-        self.method:str = method # payment method e.g.. bkash/rocket/nagad
-        self.date_time:str = date_time # payment timestamp
+        self.value1: str = kwargs.get('value1')
+        self.value2: str = kwargs.get('value2')
+        self.value3: str = kwargs.get('value3')
+        self.value4: str = kwargs.get('value4')
+        self.transaction_status: str = kwargs.get('transaction_status')
+        # payment method e.g.. bkash/rocket/nagad
+        self.method: str = kwargs.get('method')
+        self.date_time: str = kwargs.get('date_time')  # payment timestamp
