@@ -27,23 +27,23 @@ env.read_env(os.path.join(ROOT_DIR, '.env'))
 class TestShurjopayModels(unittest.TestCase):
 
     def test_payment_request(self):
-        payment_request = PaymentRequest(**payment_request_json)
+        payment_request = PaymentRequestModel(**payment_request_json)
         self.assertEqual(5.0, payment_request.amount, "Amount is not same")
         self.assertIsInstance(payment_request.amount,
                               float, "Amount type is not same")
 
     def test_token_details(self):
-        token_details = ShurjoPayToken(**token_details_json)
+        token_details = ShurjoPayTokenModel(**token_details_json)
         self.assertEqual("2023-05-29 12:46:01pm",
                          token_details.token_create_time, "Token creation is not same")
 
     def test_payment_details(self):
-        payment_details = PaymentDetails(**payment_details_json)
+        payment_details = PaymentDetailsModel(**payment_details_json)
         self.assertEqual(
             "192.168.0.46", payment_details.merchant_server_ip, "IP is not same")
 
     def test_verified_payment_details(self):
-        verified_payment_details = VerifiedPaymentDetails(
+        verified_payment_details = VerifiedPaymentDetailsModel(
             **verified_payemnt_json)
         self.assertEqual(5.0, verified_payment_details.amount,
                          "Amount is not same")

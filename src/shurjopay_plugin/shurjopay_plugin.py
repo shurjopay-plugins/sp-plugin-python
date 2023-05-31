@@ -7,16 +7,17 @@ import requests
 import datetime
 import json
 from .models import (
-    PaymentDetails,
-    ShurjoPayToken,
-    VerifiedPaymentDetails
+    PaymentDetailsModel,
+    ShurjoPayTokenModel,
+    VerifiedPaymentDetailsModel
 )
 from .utils import (
     get_client_ip,
     Endpoints,
     ShurjopayStatus,
     ShurjopayException,
-    ShurjopayAuthException)
+    ShurjopayAuthException
+)
 from .logger_config import ShurjopayLoggerConfig
 
 
@@ -46,12 +47,11 @@ class ShurjopayPlugin(object):
     AUTHENTICATION_SUCCESS = 'Merchant Authentication Successful!'
     AUTHENTICATION_FAILED = 'Merchant Authentication Failed!'
     AUTHENTICATION_TOKEN_EXPIRED = 'Shurjopay Token Expired!'
-    WRONG_CREDENTIALS = 'Please check your credentials'
+    WRONG_CREDENTIALS = 'Please Check Your Credentials!'
     PAYMENT_REQUEST_SUCCESS = 'Shurjopay Payment Request Successful!'
     PAYMENT_REQUEST_FAILED = 'Shurjopay Payment Request Failed!'
     PAYMENT_VERIFICATION_FAILED = 'Shurjopay Payment Verification Failed!'
     PAYMENT_CHECK_FAILED = 'Shurjopay Payment Checking Failed!'
-
 
     def __init__(self, sp_config) -> None:
         # Initialize the configuration keys for plugin configuration
@@ -73,7 +73,7 @@ class ShurjopayPlugin(object):
 
         Returns
         -------
-        AUTH_TOKEN (ShurjoPayToken): token details from "get-token" api response which contains
+        AUTH_TOKEN (ShurjoPayTokenModel): token details from shurjopay
             - token(str), 
             - token_type(str),
             - expires_in(int),(in seconds)
@@ -82,7 +82,8 @@ class ShurjopayPlugin(object):
 
         Raises
         -----
-        ShurjopayAuthException: If authentication fails due to invalid credentials or any other reason. 
+        ShurjopayAuthException: If authentication fails due to 
+        invalid credentials or any other reason. 
         '''
         # Create token endpoint url
         url = requests.compat.urljoin(self.SP_ENDPOINT, Endpoints.TOKEN.value)
@@ -100,7 +101,7 @@ class ShurjopayPlugin(object):
                 self.logger.info(
                     f'sp_code:{token_details["sp_code"]}, sp_message:{ShurjopayStatus().AUTH_SUCCESS.message}')
                 # set AUTH_TOKEN from response
-                self.AUTH_TOKEN = ShurjoPayToken(**token_details)
+                self.AUTH_TOKEN = ShurjoPayTokenModel(**token_details)
                 return self.AUTH_TOKEN
             self.logger.error(
                 f'sp_code:{token_details["sp_code"]}, sp_message:{token_details["message"]}')
@@ -113,7 +114,8 @@ class ShurjopayPlugin(object):
             raise ShurjopayAuthException(self.WRONG_CREDENTIALS, ex)
 
     def is_token_valid(self):
-        '''Checks if token is valid or not by comparing token expiry time with current time
+        '''Checks if token is valid or not by comparing
+        token expiry time with current time
 
         Returns
         -------
@@ -121,18 +123,21 @@ class ShurjopayPlugin(object):
         None: if token is invalid
         '''
         return True if (datetime.datetime.strptime(
-                       self.AUTH_TOKEN.token_create_time, "%Y-%m-%d %I:%M:%S%p") + datetime.timedelta(seconds=self.AUTH_TOKEN.expires_in)) > datetime.datetime.now() else False
+                       self.AUTH_TOKEN.token_create_time, "%Y-%m-%d %I:%M:%S%p") +
+            datetime.timedelta(seconds=self.AUTH_TOKEN.expires_in)) > datetime.datetime.now() else False
 
     def make_payment(self, payment_req):
-        '''Make payment request to shurjoPay Gateway using a payment request object containing payment details.
+        '''Make payment request to shurjoPay Gateway 
+        using a payment request object containing payment details.
 
         Args
         ----
-        payment_req (PaymentRequest): PaymentRequest object containing payment details.
+        payment_req (PaymentRequestModel): PaymentRequestModel object containing payment details.
 
         Returns
         -------
-        payment_details (PaymentDetails): PaymentDetails object containing redirect URL to reach payment page, order id to verify order in shurjoPay.
+        payment_details (PaymentDetailsModel): PaymentDetailsModel object containing redirect URL 
+        to reach payment page, order id to verify order in shurjoPay.
         None: if response dosenot contains callback url.
 
         Raises
@@ -170,7 +175,7 @@ class ShurjopayPlugin(object):
                     return None
                 self.logger.info(self.PAYMENT_REQUEST_SUCCESS)
                 # Return payment detais object
-                return PaymentDetails(**response_json)
+                return PaymentDetailsModel(**response_json)
             except ShurjopayException as ex:
                 self.logger.error(f'{self.PAYMENT_REQUEST_FAILED}: {ex}')
                 raise ShurjopayException(self.PAYMENT_REQUEST_FAILED, ex)
@@ -229,7 +234,7 @@ class ShurjopayPlugin(object):
                 self.logger.info(
                     f'sp_code:{response["sp_code"]}, sp_message:{response["sp_message"]}')
                 # Return  verified payment detais object
-                return VerifiedPaymentDetails(**response)
+                return VerifiedPaymentDetailsModel(**response)
             except ShurjopayException as ex:
                 self.logger.error(f'{self.PAYMENT_VERIFICATION_FAILED}: {ex}')
                 raise ShurjopayException(self.PAYMENT_VERIFICATION_FAILED, ex)

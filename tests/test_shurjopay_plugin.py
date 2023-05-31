@@ -24,7 +24,7 @@ class TestShurjoPayPlugin(unittest.TestCase):
 
     def setUp(self):
         # Shurjopay config for InstShurjoPayConfigModelatiating ShurjopayPlugin
-        sp_config = ShurjoPayConfig(
+        sp_config = ShurjoPayConfigModel(
             SP_USERNAME=env('SP_USERNAME'),
             SP_PASSWORD=env('SP_PASSWORD'),
             SP_ENDPOINT=env('SP_ENDPOINT'),
@@ -34,7 +34,7 @@ class TestShurjoPayPlugin(unittest.TestCase):
             SP_LOGDIR=env('SP_LOGDIR')
         )
         self._plugin = ShurjopayPlugin(sp_config)
-        self._payment_request = PaymentRequest(**payment_request_json)
+        self._payment_request = PaymentRequestModel(**payment_request_json)
 
     def test_make_payment(self):
         # unit testing for make payment

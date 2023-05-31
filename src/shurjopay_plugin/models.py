@@ -1,4 +1,4 @@
-class ShurjoPayConfig():
+class ShurjoPayConfigModel():
     '''This class is used to store Shurjopay configuration details'''
 
     def __init__(self, SP_USERNAME, SP_PASSWORD, SP_ENDPOINT,
@@ -12,7 +12,7 @@ class ShurjoPayConfig():
         self.SP_LOGDIR = str(SP_LOGDIR)  # shurjopay log directory
 
 
-class ShurjoPayToken():
+class ShurjoPayTokenModel():
     '''This class is used to store Shurjopay authentication token details'''
 
     def __init__(self, **kwargs):
@@ -26,7 +26,7 @@ class ShurjoPayToken():
         self.expires_in = int(kwargs.get('expires_in'))
 
 
-class PaymentRequest():
+class PaymentRequestModel():
     '''This class is used to store payment request details'''
 
     def __init__(self, amount, order_id, currency, customer_name,
@@ -42,7 +42,7 @@ class PaymentRequest():
         self.customer_post_code = str(customer_post_code)  # customer post code
 
 
-class PaymentDetails():
+class PaymentDetailsModel():
     '''This class is used to store payment details'''
 
     def __init__(self, **kwargs):
@@ -62,7 +62,7 @@ class PaymentDetails():
         self.transaction_status = str(kwargs.get('transactionStatus'))
 
 
-class VerifiedPaymentDetails():
+class VerifiedPaymentDetailsModel():
     '''This class is used to store verified payment details'''
 
     def __init__(self, **kwargs):
