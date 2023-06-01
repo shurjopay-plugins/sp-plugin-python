@@ -22,17 +22,17 @@ from .logger_config import ShurjopayLoggerConfig
 
 
 class ShurjopayPlugin(object):
-    '''
-        shurjoPay Online payment gateway has several API's 
-        which need to be integrated by merchants for 
+    """
+        shurjoPay Online payment gateway has several API's
+        which need to be integrated by merchants for
         accessing different services. The available services are:
         - Authenticating
         - Making payment
-        - Verifying payment 
+        - Verifying payment
         - Checking payment status
-        For more details view the shurjoPay version-2.1 integration documentation : 
-        https://docs.google.com/document/d/19J4HE0j873nBJqcN-uRBYYAa_qBA3p1XSY-jy2fwvEE/edit .    
-    '''
+        For more details view the shurjoPay version-2.1 integration documentation :
+        https://docs.google.com/document/d/19J4HE0j873nBJqcN-uRBYYAa_qBA3p1XSY-jy2fwvEE/edit .
+    """
     # shurjopay Token attributes
     # token(str),
     # token_type,
@@ -69,7 +69,7 @@ class ShurjopayPlugin(object):
         self.logger = ShurjopayLoggerConfig().get_file_logger(sp_config.SP_LOGDIR)
 
     def authenticate(self):
-        ''' Authenticate with shurjoPay Payment Gateway using Merchant credectials.
+        """ Authenticate with shurjoPay Payment Gateway using Merchant credectials.
 
         Returns
         -------
@@ -84,7 +84,7 @@ class ShurjopayPlugin(object):
         -----
         ShurjopayAuthException: If authentication fails due to 
         invalid credentials or any other reason. 
-        '''
+        """
         # Create token endpoint url
         url = requests.compat.urljoin(self.SP_ENDPOINT, Endpoints.TOKEN.value)
         self.logger.info(self.SP_ENDPOINT)
@@ -114,20 +114,20 @@ class ShurjopayPlugin(object):
             raise ShurjopayAuthException(self.WRONG_CREDENTIALS, ex)
 
     def is_token_valid(self):
-        '''Checks if token is valid or not by comparing
+        """Checks if token is valid or not by comparing
         token expiry time with current time
 
         Returns
         -------
         True: if token is valid 
         None: if token is invalid
-        '''
+        """
         return True if (datetime.datetime.strptime(
                        self.AUTH_TOKEN.token_create_time, "%Y-%m-%d %I:%M:%S%p") +
             datetime.timedelta(seconds=self.AUTH_TOKEN.expires_in)) > datetime.datetime.now() else False
 
     def make_payment(self, payment_req):
-        '''Make payment request to shurjoPay Gateway 
+        """Make payment request to shurjoPay Gateway 
         using a payment request object containing payment details.
 
         Args
@@ -144,7 +144,7 @@ class ShurjopayPlugin(object):
         ------
         ShurjopayAuthException if payment fails due to token expired or invalid token.
         ShurjopayException if payment fails due to any other reason.
-        '''
+        """
         try:
             # Check if token is valid or expired
             if self.AUTH_TOKEN is None or self.is_token_valid() is False:
@@ -186,21 +186,20 @@ class ShurjopayPlugin(object):
                 self.AUTHENTICATION_FAILED, self.AUTHENTICATION_TOKEN_EXPIRED)
 
     def verify_payment(self, order_id):
-        ''' Complete the payment process ushig the order id in the the IPN.
-
+        """ Complete the payment process ushig the order id in the the IPN.
         Args
         -----
         order_id (str): Order id of the payment.
 
         Returns
         -------
-        VerifiedPayment: VerifiedPayment object containing payment details.
+        VerifiedPaymentModel: VerifiedPaymentModel object containing payment details.
 
         Raises
         -------
         ShurjopayAuthException if payment fails due to token expired or invalid token.
         ShurjopayException if payment fails due to any other reason.
-        '''
+        """
         try:
             # Check if token is valid or expired
             if self.AUTH_TOKEN is None or self.is_token_valid() is False:
@@ -245,15 +244,15 @@ class ShurjopayPlugin(object):
                 self.AUTHENTICATION_FAILED, self.AUTHENTICATION_TOKEN_EXPIRED)
 
     def _map_payment_request(self, payment_req):
-        ''' This method is used to map additional parameters to payment request details.
+        """ This method is used to map additional parameters to payment request details.
         Args
         ----
-        payment_req (PaymentRequest): Payment request object
+        payment_req (PaymentRequestModel): Payment request object
 
         Returns
         -------
         payment_req (dict) : a dictionary containing complete payment request details.
-        '''
+        """
         return {
             'token': self.AUTH_TOKEN.token,
             'return_url': self.SP_RETURN,
