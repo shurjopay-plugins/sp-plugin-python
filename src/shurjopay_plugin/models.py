@@ -51,15 +51,15 @@ class PaymentDetailsModel():
         self.amount = float(kwargs.get('amount'))
         self.currency = str(kwargs.get('currency'))
         self.sp_order_id = str(kwargs.get('sp_order_id'))
-        self.customer_order_id = str(kwargs.get('customer_order_id'))
-        self.customer_name = str(kwargs.get('customer_name'))
-        self.customer_address = str(kwargs.get('customer_address'))
-        self.customer_city = str(kwargs.get('customer_city'))
-        self.customer_phone = str(kwargs.get('customer_phone'))
-        self.customer_email = str(kwargs.get('customer_email'))
-        self.merchant_server_ip = str(kwargs.get('client_ip'))
-        self.payment_intention = str(kwargs.get('intent'))
-        self.transaction_status = str(kwargs.get('transactionStatus'))
+        self.customer_order_id = str(kwargs.get('customer_order_id') or '')
+        self.customer_name = str(kwargs.get('customer_name') or '')
+        self.customer_address = str(kwargs.get('customer_address') or '')
+        self.customer_city = str(kwargs.get('customer_city') or '')
+        self.customer_phone = str(kwargs.get('customer_phone') or '')
+        self.customer_email = str(kwargs.get('customer_email') or '')
+        self.merchant_server_ip = str(kwargs.get('client_ip') or '')
+        self.payment_intention = str(kwargs.get('intent') or '')
+        self.transaction_status = str(kwargs.get('transactionStatus') or '')
 
 
 class VerifiedPaymentDetailsModel():
@@ -79,32 +79,32 @@ class VerifiedPaymentDetailsModel():
         self.discount_percent = int(kwargs.get('disc_percent'))
         self.usd_amount = float(kwargs.get('usd_amt'))
         self.usd_rate = int(kwargs.get('usd_rate'))
-        self.card_holder_name = str(kwargs.get('card_holder_name'))
-        self.card_number = str(kwargs.get('card_number'))
+        self.card_holder_name = str(kwargs.get('card_holder_name') or '')
+        self.card_number = str(kwargs.get('card_number') or '')
 
-        self.transaction_status = str(kwargs.get('transaction_status'))
+        self.transaction_status = str(kwargs.get('transaction_status') or '')
         # payment method e.g.. bkash/rocket/nagad
-        self.payment_method = str(kwargs.get('method'))
+        self.payment_method = str(kwargs.get('method') or '')
         self.payment_confirmed_at = str(kwargs.get('date_time'))
 
         self.payment_verification_status = bool(kwargs.get('is_verify'))
-        self.bank_status = str(kwargs.get('bank_status'))
-        self.customer_order_id = str(kwargs.get('customer_order_id'))
-        self.shurjopay_message = str(kwargs.get('sp_message'))
-        self.shurjopay_code = str(kwargs.get('sp_code'))
+        self.bank_status = str(kwargs.get('bank_status') or '')
+        self.customer_order_id = str(kwargs.get('customer_order_id') or '')
+        self.shurjopay_message = str(kwargs.get('sp_message') or '')
+        self.shurjopay_code = str(kwargs.get('sp_code') or '')
 
-        self.customer_phone_no = str(kwargs.get('phone_no'))
-        self.customer_name = str(kwargs.get('name'))
-        self.customer_email = str(kwargs.get('email'))
-        self.customer_address = str(kwargs.get('address'))
-        self.customer_city = str(kwargs.get('city'))
+        self.customer_phone_no = str(kwargs.get('phone_no') or '')
+        self.customer_name = str(kwargs.get('name') or '')
+        self.customer_email = str(kwargs.get('email') or '')
+        self.customer_address = str(kwargs.get('address') or '')
+        self.customer_city = str(kwargs.get('city') or '')
         '''
         Sometimes customers have to send additional data like studentId 
         or any other information which is not provided by shurjoPay.
         value1, value2, value3, value4 are used for customer's 
         additional info if needed.
         '''
-        self.value1 = str(kwargs.get('value1'))
-        self.value2 = str(kwargs.get('value2'))
-        self.value3 = str(kwargs.get('value3'))
-        self.value4 = str(kwargs.get('value4'))
+        self.value1 = str(kwargs.get('value1') or '')
+        self.value2 = str(kwargs.get('value2') or '')
+        self.value3 = str(kwargs.get('value3') or '')
+        self.value4 = str(kwargs.get('value4') or '')
