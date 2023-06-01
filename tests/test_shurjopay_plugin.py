@@ -44,33 +44,44 @@ class TestShurjoPayPlugin(unittest.TestCase):
         print(json.dumps(self._payment_request_details.__dict__, indent=4))
 
         self.assertEqual(
-            5, self._payment_request_details.amount, 'amount is not equal')
+            5, self._payment_request_details.amount,
+            'amount is not equal')
 
         self.assertEqual(
-            'BDT', self._payment_request_details.currency, 'Currency  is not equal')
+            'BDT', self._payment_request_details.currency,
+            'Currency  is not equal')
 
         self.assertEqual(
-            'MD. ABDUL KARIM', self._payment_request_details.customer_name, 'Customer Name is not equal')
+            'MD. ABDUL KARIM', self._payment_request_details.customer_name,
+            'Customer Name is not equal')
 
         self.assertEqual(
-            '01111111111', self._payment_request_details.customer_phone, 'Customer Phone is not equal')
+            '01111111111', self._payment_request_details.customer_phone,
+            'Customer Phone is not equal')
 
         self.assertEqual(
-            'mohakhali', self._payment_request_details.customer_address, "Customer Address is not equal")
+            'mohakhali', self._payment_request_details.customer_address,
+            "Customer Address is not equal")
 
         self.assertEqual(
-            'Dhaka', self._payment_request_details.customer_city, 'Customer City is not equal')
+            'Dhaka', self._payment_request_details.customer_city,
+            'Customer City is not equal')
 
     def test_verify_payment(self):
         # unit testing for verify payment
         try:
-            verified_payment_details = self._plugin.verify_payment(
+            self.verified_payment_details = self._plugin.verify_payment(
                 'SP_PLUGIN_PYTHON64744291a63de')
-            self.assertEqual(2382747, verified_payment_details.id,
+            print(json.dumps(
+                self.verified_payment_details.__dict__, indent=4))
+            self.assertEqual(2382747, self.verified_payment_details.payment_id,
                              "ID is not equal")
             self.assertEqual(
-                "SP_PLUGIN_PYTHON64744291a63de", verified_payment_details.order_id,
+                "SP_PLUGIN_PYTHON64744291a63de", self.verified_payment_details.shurjopay_order_id,
                 "Order ID is not equal")
+            self.assertEqual(
+                'MD. ABDUL KARIM', self.verified_payment_details.customer_name,
+                'Customer Name is not equal')
         except ShurjopayException as e:
             LOGGER.info(e)
 
